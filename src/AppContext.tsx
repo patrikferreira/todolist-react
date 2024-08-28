@@ -14,8 +14,21 @@ type AppProviderProps = {
 };
 
 export function AppProvider({ children }: AppProviderProps) {
-    const [selectedRoute, setSelectedRoute] = useState<string>('myDay');
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+    const [selectedRoute, setSelectedRoute] = useState<string>(() => {
+        return localStorage.getItem('selectedRoute') || 'myDay';
+    });
+
+    const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+        return localStorage.getItem('isDarkMode') === 'true';
+    });
+
+    useEffect(() => {
+        localStorage.setItem('selectedRoute', selectedRoute);
+    }, [selectedRoute]);
+
+    useEffect(() => {
+        localStorage.setItem('isDarkMode', String(isDarkMode));
+    }, [isDarkMode]);
 
     const toggleDarkMode = () => {
         setIsDarkMode(prevMode => !prevMode);

@@ -8,7 +8,7 @@ export default function App() {
     throw new Error("DarkMode must be used within an AppProvider");
   }
 
-  const { isDarkMode, toggleDarkMode } = ctx;
+  const { isDarkMode } = ctx;
 
   return (
     <main
