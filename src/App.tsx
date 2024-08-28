@@ -1,12 +1,20 @@
 import { useContext } from "react";
-import { NavigationContext } from "./NavigationContext";
-
+import { AppContext } from "./AppContext";
 
 export default function App() {
-  const ctx = useContext(NavigationContext)
+  const ctx = useContext(AppContext);
+
+  if (!ctx) {
+    throw new Error("DarkMode must be used within an AppProvider");
+  }
+
+  const { isDarkMode, toggleDarkMode } = ctx;
+
   return (
-    <>
-      <p>{ctx?.selectedRoute}</p>
-    </>
+    <main
+      className={`p-4 w-full h-screen transition-all duration-300 ${
+        isDarkMode ? "bg-primaryDark" : "bg-lightColor"
+      }`}
+    ></main>
   );
 }

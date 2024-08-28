@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-export default function Switch() {
+type Props = {
+    onToggle?: (active: boolean) => void;
+}
+
+export default function Switch({onToggle}: Props) {
     const [active, setActive] = React.useState<boolean>(false);
+
+    useEffect(() => {
+        if(onToggle) {}
+    }, [active, onToggle])
 
     return (
         <div
