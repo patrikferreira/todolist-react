@@ -18,11 +18,11 @@ export default function DarkMode() {
                 Dark mode
             </div>
             <div
-                className={`relative h-6 w-10 rounded-full flex items-center p-1 cursor-pointer transition-all duration-300 ${isDarkMode ? 'bg-activeColor' : 'bg-base'}`}
+                className={`relative h-5 w-8 rounded-full flex items-center p-1 cursor-pointer transition-all duration-300 ${isDarkMode ? 'bg-accent' : 'bg-base'}`}
                 onClick={toggleDarkMode}
             >
                 <div
-                    className={`absolute h-4 w-4 rounded-full bg-white transition-transform duration-300 shadow-md ${isDarkMode ? 'translate-x-4' : 'translate-x-0'}`}
+                    className={`absolute h-3 w-3 rounded-full bg-white transition-transform duration-300 ${isDarkMode ? 'translate-x-3' : 'translate-x-0'}`}
                 />
             </div>
         </div>
