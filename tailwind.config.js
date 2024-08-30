@@ -15,7 +15,7 @@ export default {
         'base': '#6f7072',
         'primaryDark': '#15161a',
         'secondaryDark': '#1e1f23',
-        'accent': '#8777fe',
+        'accent': '#4354ef',
       }
     },
   },
