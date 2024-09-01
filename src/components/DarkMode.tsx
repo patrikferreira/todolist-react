@@ -12,7 +12,7 @@ export default function DarkMode() {
   const { isDarkMode, toggleDarkMode } = ctx;
 
   return (
-    <div className="flex justify-between items-center p-2">
+    <div className="flex justify-between items-center py-2 px-4">
       <div className="flex gap-2 items-center text-base">
         <FaRegMoon />
         Dark mode

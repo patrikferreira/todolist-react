@@ -3,9 +3,10 @@ import { AppContext } from "../AppContext";
 
 type Props = {
   title: string;
+  className?: string;
 };
 
-export default function DateContainer({ title }: Props) {
+export default function DateContainer({ title, className }: Props) {
   const ctx = useContext(AppContext);
 
   if (!ctx) {
@@ -27,7 +28,7 @@ export default function DateContainer({ title }: Props) {
   const formattedDate: string = formatDate(new Date() as any);
 
   return (
-    <div className="flex flex-col">
+    <div className={`flex flex-col ${className || ""}`}>
       <div
         className={`text-lg font-semibold transition-all duration-300 ${
           isDarkMode ? "text-lightColor" : "text-darkColor"

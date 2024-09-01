@@ -11,12 +11,27 @@ export default {
         'secondaryColor': '#ebebeb',
         'lightColor': '#ffff',
         'darkColor': '#101010',
-        'activeColor': '#33bf58',
         'base': '#6f7072',
         'primaryDark': '#15161a',
         'secondaryDark': '#1e1f23',
-        'accent': '#4354ef',
-      }
+        'accent': '#e06449',
+        'borderColor': '#7d7d7d0f',
+      },
+      animation: {
+        'fade-in-left': 'fadeInLeft 0.3s ease-out forwards',
+      },
+      keyframes: {
+        fadeInLeft: {
+          '0%': {
+            opacity: '0',
+            transform: 'translateX(-20px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateX(0)',
+          },
+        },
+      },
     },
   },
   plugins: [],

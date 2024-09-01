@@ -8,6 +8,8 @@ type AppContextType = {
     toggleDarkMode: () => void;
     tasks: Task[];
     addTask: (task: Task) => void;
+    updateTask: (updatedTask: Task) => void;
+    deleteTask: (taskId: number) => void;
     toggleTaskImportance: (taskId: number) => void;
     toggleTaskCompletion: (taskId: number) => void;
 };
@@ -27,7 +29,10 @@ export function AppProvider({ children }: AppProviderProps) {
         return localStorage.getItem('isDarkMode') === 'true';
     });
 
-    const [tasks, setTasks] = useState<Task[]>([]);
+    const [tasks, setTasks] = useState<Task[]>(() => {
+        const savedTasks = localStorage.getItem('tasks');
+        return savedTasks ? JSON.parse(savedTasks) : [];
+    });
 
     useEffect(() => {
         localStorage.setItem('selectedRoute', selectedRoute);
@@ -37,12 +42,28 @@ export function AppProvider({ children }: AppProviderProps) {
         localStorage.setItem('isDarkMode', String(isDarkMode));
     }, [isDarkMode]);
 
+    useEffect(() => {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }, [tasks]);
+
     const toggleDarkMode = () => {
         setIsDarkMode(prevMode => !prevMode);
     };
 
     const addTask = (task: Task) => {
         setTasks(prevTasks => [...prevTasks, task]);
+    };
+
+    const updateTask = (updatedTask: Task) => {
+        setTasks(prevTasks =>
+            prevTasks.map(task =>
+                task.id === updatedTask.id ? updatedTask : task
+            )
+        );
+    };
+
+    const deleteTask = (taskId: number) => {
+        setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
     };
 
     const toggleTaskImportance = (taskId: number) => {
@@ -63,7 +84,7 @@ export function AppProvider({ children }: AppProviderProps) {
 
     return (
         <AppContext.Provider
-            value={{ selectedRoute, setSelectedRoute, isDarkMode, toggleDarkMode, tasks, addTask, toggleTaskImportance, toggleTaskCompletion }}
+            value={{ selectedRoute, setSelectedRoute, isDarkMode, toggleDarkMode, tasks, addTask, updateTask, deleteTask, toggleTaskImportance, toggleTaskCompletion }}
         >
             {children}
         </AppContext.Provider>

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
+import { BiPieChart } from "react-icons/bi";
 
 export default function Logo() {
   const ctx = useContext(AppContext);
@@ -12,7 +13,7 @@ export default function Logo() {
 
   return (
     <div className="flex gap-2 p-2 items-center">
-      <img src="/vite.svg" alt="" />
+      <BiPieChart className="text-4xl text-accent" />
       <p
         className={`text-2xl font-semibold transition-all duration-300 ${
           isDarkMode ? "text-lightColor" : "text-darkColor"

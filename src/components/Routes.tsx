@@ -37,15 +37,15 @@ export default function Routes() {
 
   return (
     <div>
-      <ul className="flex flex-col gap-2">
+      <ul className="flex flex-col py-2 gap-2">
         {menuItems.map((item) => (
           <li
             key={item.id}
-            className={`flex items-center justify-between gap-2 p-2 cursor-pointer rounded-lg transition-all duration-300 ${
+            className={`flex items-center justify-between gap-2 py-2 px-4 cursor-pointer rounded-lg transition-all duration-300 ${
               selected === item.id
                 ? isDarkMode
-                  ? "bg-primaryDark text-lightColor"
-                  : "bg-secondaryColor text-darkColor"
+                  ? "bg-primaryDark text-lightColor shadow-sm"
+                  : "bg-secondaryColor text-darkColor shadow-sm"
                 : "bg-transparent text-base"
             }`}
             onClick={() => setSelected(item.id)}
