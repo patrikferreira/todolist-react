@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { AppContext } from "../AppContext";
 import { Task } from "../Types";
 import { GoStar, GoStarFill } from "react-icons/go";
-import Check from "./Check";
+import Check from "./Check"; // Import do componente Check
 
 type Props = {
   selectedTaskId: number | null;
@@ -22,9 +22,8 @@ export default function CustomTask({ selectedTaskId }: Props) {
   const { tasks, updateTask, deleteTask } = ctx;
 
   useEffect(() => {
-    console.log("Selected Task ID:", selectedTaskId);
     if (selectedTaskId !== null) {
-      const task = tasks.find(task => task.id === selectedTaskId) || null;
+      const task = tasks.find((task) => task.id === selectedTaskId) || null;
       setEditingTask(task);
       if (task) {
         setDescription(task.description);
@@ -56,21 +55,31 @@ export default function CustomTask({ selectedTaskId }: Props) {
   }
 
   return (
-    <div className={`flex flex-col justify-between gap-4 h-full transition-all duration-300 ${ctx.isDarkMode ? "bg-secondaryDark text-lightColor" : "bg-primaryColor text-darkColor"}`}>
+    <div
+      className={`flex flex-col justify-between gap-4 h-full transition-all duration-300 ${
+        ctx.isDarkMode
+          ? "bg-secondaryDark text-lightColor"
+          : "bg-primaryColor text-darkColor"
+      }`}
+    >
       <div className="flex flex-col gap-2">
-      <input
+        <input
           type="text"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className={`py-2 px-4 rounded-md transition-all duration-300 ${ctx.isDarkMode ? "bg-primaryDark text-lightColor" : "bg-secondaryColor text-darkColor"}`}
+          className={`py-2 px-4 rounded-md transition-all duration-300 ${
+            ctx.isDarkMode
+              ? "bg-primaryDark text-lightColor"
+              : "bg-secondaryColor text-darkColor"
+          }`}
           placeholder="Task Description"
         />
         <div className="flex items-center gap-4">
-          <label className="flex items-center gap-2">
-            <Check
-              action={() => setIsChecked(!isChecked)}
-              isChecked={isChecked}
-            />
+          <label
+            className="flex items-center gap-2 cursor-pointer"
+            onClick={() => setIsChecked(!isChecked)}
+          >
+            <Check isChecked={isChecked} action={() => setIsChecked(!isChecked)} />
             <span>Completed</span>
           </label>
           <button
@@ -88,7 +97,7 @@ export default function CustomTask({ selectedTaskId }: Props) {
       </div>
 
       <div className="flex flex-col">
-      <button
+        <button
           onClick={handleSave}
           className="bg-accent text-white p-2 rounded-md"
         >

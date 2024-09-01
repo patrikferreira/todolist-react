@@ -9,13 +9,14 @@ import Container from "./Container";
 import InputContainer from "./InputContainer";
 import TaskItem from "./TaskItem";
 import CustomTask from "./CustomTask";
+import { generateUniqueId } from "../Utils"; // Importe o gerador de ID
 
 export default function MyDay() {
   const ctx = useContext(AppContext);
   const [newTask, setNewTask] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [taskIdsWithTransition, setTaskIdsWithTransition] = useState<number[]>([]);
-  const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null); // Track selected task
+  const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
 
   if (!ctx) {
     throw new Error("AppContext must be used within an AppProvider");
@@ -34,7 +35,7 @@ export default function MyDay() {
   function handleAddTask(description: string) {
     if (description.trim() && tasks.length < MAX_TASKS) {
       const newTaskItem: Task = {
-        id: tasks.length + 1,
+        id: generateUniqueId(), // Use o gerador de ID
         description,
         isChecked: false,
         isImportant: false,
@@ -102,7 +103,7 @@ export default function MyDay() {
           placeHolder="Create new Task"
           action={handleAddTask}
           iconBtn={<IoIosAdd className="text-base text-xl" />}
-          isSearchMode={false} // Set to false for task creation
+          isSearchMode={false}
         />
       </Container>
 
