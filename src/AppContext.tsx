@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useState, useEffect } from 'react';
+import React, { createContext, ReactNode, useState } from 'react';
 import { Task } from './Types';
 
 type AppContextType = {
@@ -21,30 +21,11 @@ type AppProviderProps = {
 };
 
 export function AppProvider({ children }: AppProviderProps) {
-    const [selectedRoute, setSelectedRoute] = useState<string>(() => {
-        return localStorage.getItem('selectedRoute') || 'myDay';
-    });
+    const [selectedRoute, setSelectedRoute] = useState<string>('myDay');
 
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-        return localStorage.getItem('isDarkMode') === 'true';
-    });
+    const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
-    const [tasks, setTasks] = useState<Task[]>(() => {
-        const savedTasks = localStorage.getItem('tasks');
-        return savedTasks ? JSON.parse(savedTasks) : [];
-    });
-
-    useEffect(() => {
-        localStorage.setItem('selectedRoute', selectedRoute);
-    }, [selectedRoute]);
-
-    useEffect(() => {
-        localStorage.setItem('isDarkMode', String(isDarkMode));
-    }, [isDarkMode]);
-
-    useEffect(() => {
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    }, [tasks]);
+    const [tasks, setTasks] = useState<Task[]>([]);
 
     const toggleDarkMode = () => {
         setIsDarkMode(prevMode => !prevMode);

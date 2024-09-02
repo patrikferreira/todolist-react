@@ -8,10 +8,7 @@ import { AppProvider } from "./AppContext";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AppProvider>
-      <div className="flex">
-        <Sidebar />
         <App />
-      </div>
     </AppProvider>
   </StrictMode>
 );

@@ -13,7 +13,8 @@ export default function Logo() {
 
   return (
     <div className="flex gap-4 p-2 items-center">
-      <div className="border-8 border-r-accent h-8 w-8 rounded-full">
+      <div className="border-8 border-r-accent h-8 w-8 rounded-full"
+      style={{ transform: "rotate(-40deg)" }}>
 
       </div>
       <p
