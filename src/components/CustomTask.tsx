@@ -105,7 +105,7 @@ export default function CustomTask({ selectedTaskId }: Props) {
         </button>
         <button
           onClick={handleDelete}
-          className="bg-red-500 text-white p-2 rounded-md mt-2"
+          className="bg-redColor text-white p-2 rounded-md mt-2"
         >
           Delete Task
         </button>

@@ -17,7 +17,7 @@ export default function Container({ children, className }: Props) {
 
     return (
         <div
-            className={`p-4 shadow-sm border border-borderColor rounded-2xl transition-all duration-300 ${
+            className={`p-4  border border-borderColor rounded-2xl transition-all duration-300 ${
                 isDarkMode
                     ? "bg-secondaryDark text-lightColor"
                     : "bg-primaryColor text-darkColor"

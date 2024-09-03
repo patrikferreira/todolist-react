@@ -24,7 +24,7 @@ export default function TaskCompletionChart() {
       {
         label: "Task Completion",
         data: [completedTasks, uncompletedTasks],
-        backgroundColor: ["#e06449", "#ebebeb"],
+        backgroundColor: ["#563d7c", "#ebebeb57"],
         borderWidth: 0,
       },
     ],

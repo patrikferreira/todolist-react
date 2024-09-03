@@ -14,8 +14,9 @@ export default {
         'base': '#6f7072',
         'primaryDark': '#15161a',
         'secondaryDark': '#1e1f23',
-        'accent': '#e06449',
+        'accent': '#563d7c',
         'borderColor': '#7d7d7d0f',
+        'redColor': '#dc3545',
       },
       animation: {
         'fade-in-left': 'fadeInLeft 0.3s ease-out forwards',

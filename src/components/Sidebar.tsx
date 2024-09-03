@@ -16,7 +16,7 @@ export default function Sidebar() {
 
   return (
     <nav
-      className={`h-screen w-72 min-w-72 flex flex-col gap-2 p-4 transition-all duration-300 shadow-md border-r border-borderColor ${
+      className={`h-screen w-72 min-w-72 flex flex-col gap-2 p-4 transition-all duration-300 border-r border-borderColor ${
         isDarkMode ? "bg-secondaryDark" : "bg-primaryColor"
       }`}
     >

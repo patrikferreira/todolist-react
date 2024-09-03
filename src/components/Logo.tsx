@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
+import { BsCheckAll } from "react-icons/bs";
 
 
 export default function Logo() {
@@ -12,17 +13,14 @@ export default function Logo() {
   const { isDarkMode } = ctx;
 
   return (
-    <div className="flex gap-4 p-2 items-center">
-      <div className="border-8 border-r-accent h-8 w-8 rounded-full"
-      style={{ transform: "rotate(-40deg)" }}>
-
-      </div>
+    <div className="flex gap-2 p-2 items-center">
+      <BsCheckAll className="text-4xl text-accent" />
       <p
         className={`text-2xl font-semibold transition-all duration-300 ${
           isDarkMode ? "text-lightColor" : "text-darkColor"
         }`}
       >
-        Todolist
+        Daily To Do
       </p>
     </div>
   );

@@ -17,7 +17,7 @@ export default function Switch({onToggle}: Props) {
             onClick={() => setActive(!active)}
         >
             <div
-                className={`absolute h-4 w-4 rounded-full bg-white transition-transform duration-300 shadow-md ${active ? 'translate-x-4' : 'translate-x-0'}`}
+                className={`absolute h-4 w-4 rounded-full bg-white transition-transform duration-300 ${active ? 'translate-x-4' : 'translate-x-0'}`}
             />
         </div>
     );
