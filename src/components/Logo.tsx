@@ -15,13 +15,13 @@ export default function Logo() {
   return (
     <div className="flex gap-2 p-2 items-center">
       <BsCheckAll className="text-4xl text-accent" />
-      <p
-        className={`text-2xl font-semibold transition-all duration-300 ${
+      <h1
+        className={`text-xl font-semibold transition-all duration-300 ${
           isDarkMode ? "text-lightColor" : "text-darkColor"
         }`}
       >
         Daily To Do
-      </p>
+      </h1>
     </div>
   );
 }

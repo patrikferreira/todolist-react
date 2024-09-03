@@ -35,7 +35,7 @@ export default function MyDay() {
   function handleAddTask(description: string) {
     if (description.trim() && tasks.length < MAX_TASKS) {
       const newTaskItem: Task = {
-        id: generateUniqueId(), // Use o gerador de ID
+        id: generateUniqueId(),
         description,
         isChecked: false,
         isImportant: false,

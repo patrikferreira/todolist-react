@@ -15,7 +15,9 @@ export default function App() {
   const { isDarkMode } = ctx;
   return (
     <BrowserRouter>
-      <div className="flex">
+      <div className={`flex h-screen ${
+          isDarkMode ? "bg-primaryDark" : "bg-primaryColor"
+        }`}>
         <Sidebar />
         <div className={`flex w-full p-6 transition-all duration-300 ${isDarkMode ? 'bg-primaryDark': 'bg-lightColor'}`}>
           <Routes>

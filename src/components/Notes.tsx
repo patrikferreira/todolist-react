@@ -1,3 +1,5 @@
 export default function Notes() {
-  return <div>Notes</div>;
+  return (
+    <div className="animate-fade-in-left">Notes</div>
+  )
 }

@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { IoSearch } from "react-icons/io5";
+import { IoIosAdd } from "react-icons/io";
 import { AppContext } from "../AppContext";
 import Container from "./Container";
 import InputContainer from "./InputContainer";
@@ -7,6 +8,7 @@ import TaskItem from "./TaskItem";
 import DateContainer from "./DateContainer";
 import CustomTask from "./CustomTask";
 import TaskCompletionChart from "./TaskCompletionChart";
+import { generateUniqueId } from "../Utils";
 
 export default function Important() {
   const ctx = useContext(AppContext);
@@ -21,9 +23,25 @@ export default function Important() {
   const {
     isDarkMode,
     tasks,
+    addTask,
     toggleTaskImportance,
     toggleTaskCompletion,
   } = ctx;
+
+  const MAX_TASKS = 10;
+
+  function handleAddTask(description: string) {
+    if (description.trim() && tasks.length < MAX_TASKS) {
+      const newTaskItem = {
+        id: generateUniqueId(),
+        description,
+        isChecked: false,
+        isImportant: true,
+      };
+      addTask(newTaskItem);
+      setTaskIdsWithTransition([newTaskItem.id]);
+    }
+  }
 
   function handleSearch(value: string) {
     setSearchQuery(value);
@@ -52,7 +70,7 @@ export default function Important() {
 
   return (
     <div className="flex w-full gap-6 h-full animate-fade-in-left transition-all duration-300">
-      <Container>
+      <Container className="w-full flex flex-col justify-between">
         <div className="flex flex-col gap-4">
           <div className="flex gap-4 justify-between items-center">
             <DateContainer title="Important" className="min-w-40" />
@@ -79,6 +97,12 @@ export default function Important() {
             ))}
           </ul>
         </div>
+        <InputContainer
+          placeHolder="Create new Task"
+          action={handleAddTask}
+          iconBtn={<IoIosAdd className="text-base text-xl" />}
+          isSearchMode={false}
+        />
       </Container>
 
       <div className="flex flex-col gap-6 h-full w-72 min-w-72">
