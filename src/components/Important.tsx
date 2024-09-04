@@ -9,6 +9,7 @@ import DateContainer from "./DateContainer";
 import CustomTask from "./CustomTask";
 import TaskCompletionChart from "./TaskCompletionChart";
 import { generateUniqueId } from "../Utils";
+import RightPanel from "./RightPanel";
 
 export default function Important() {
   const ctx = useContext(AppContext);
@@ -105,17 +106,7 @@ export default function Important() {
         />
       </Container>
 
-      <div className="flex flex-col gap-6 h-full w-72 min-w-72">
-        <Container className="h-full flex flex-col gap-4">
-          <h1 className="text-lg font-semibold">Customize Task</h1>
-          <CustomTask selectedTaskId={selectedTaskId} />
-        </Container>
-        <Container>
-          <div className="flex justify-center items-center h-full">
-            <TaskCompletionChart />
-          </div>
-        </Container>
-      </div>
+      <RightPanel selectedTaskId={selectedTaskId} />
     </div>
   );
 }

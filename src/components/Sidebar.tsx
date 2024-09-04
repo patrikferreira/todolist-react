@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import DarkMode from "./DarkMode";
 import Logo from "./Logo";
 import Routes from "./Routes";
@@ -7,20 +7,22 @@ import { AppContext } from "../AppContext";
 
 export default function Sidebar() {
   const ctx = useContext(AppContext);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   if (!ctx) {
-    throw new Error("DarkMode must be used within an AppProvider");
+    throw new Error("AppContext must be used within an AppProvider");
   }
 
-  const { isDarkMode } = ctx;
+  const { isDarkMode, isSidebarOpen, closeSidebar } = ctx;
 
   return (
     <>
       <nav
-        className={`fixed lg:relative top-0 left-0 h-screen w-72 min-w-72 flex flex-col gap-2 p-4 transition-transform duration-300 border-r border-borderColor z-30 transform ${
-          isDarkMode ? "bg-secondaryDark" : "bg-primaryColor"
-        } ${isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"} lg:translate-x-0`}
+        className={`fixed lg:relative top-[calc(0+40px)] left-0 min-h-[calc(100vh-40px)]
+ w-72 min-w-72 flex flex-col gap-2 p-4 transition-all duration-300 border-r border-borderColor z-30 transform ${
+   isDarkMode ? "bg-secondaryDark" : "bg-primaryColor"
+ } ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+        } lg:translate-x-0`}
       >
         <div className="flex justify-between items-center">
           <Logo />
@@ -32,7 +34,7 @@ export default function Sidebar() {
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black opacity-50 z-20 lg:hidden"
-          onClick={() => setIsSidebarOpen(false)}
+          onClick={closeSidebar}
         ></div>
       )}
     </>

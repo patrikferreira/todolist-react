@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { AppContext } from "../AppContext";
 import { Task } from "../Types";
 import { GoStar, GoStarFill } from "react-icons/go";
-import Check from "./Check"; // Import do componente Check
+import Check from "./Check";
 
 type Props = {
   selectedTaskId: number | null;
@@ -79,7 +79,10 @@ export default function CustomTask({ selectedTaskId }: Props) {
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => setIsChecked(!isChecked)}
           >
-            <Check isChecked={isChecked} action={() => setIsChecked(!isChecked)} />
+            <Check
+              isChecked={isChecked}
+              action={() => setIsChecked(!isChecked)}
+            />
             <span>Completed</span>
           </label>
           <button

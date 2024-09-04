@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import { MdOutlineWbSunny } from "react-icons/md";
 import { CgNotes } from "react-icons/cg";
-import { AppContext } from "../AppContext";
 import { FaRegStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AppContext } from "../AppContext";
 
 export default function Routes() {
   const ctx = useContext(AppContext);
@@ -12,7 +12,7 @@ export default function Routes() {
     throw new Error("Routes must be used within an AppProvider");
   }
 
-  const { selectedRoute, setSelectedRoute, isDarkMode, tasks } = ctx;
+  const { selectedRoute, setSelectedRoute, isDarkMode, tasks, closeSidebar } = ctx;
   const [selected, setSelected] = React.useState<string>(selectedRoute);
 
   useEffect(() => {
@@ -36,6 +36,11 @@ export default function Routes() {
     { id: "notes", label: "Notes", icon: <CgNotes />, path: "/notes" },
   ];
 
+  const handleMenuItemClick = (itemId: string) => {
+    setSelected(itemId);
+    closeSidebar();
+  };
+
   return (
     <div>
       <ul className="flex flex-col py-2 gap-2">
@@ -50,7 +55,7 @@ export default function Routes() {
                     : "bg-secondaryColor text-darkColor"
                   : "bg-transparent text-base"
               }`}
-              onClick={() => setSelected(item.id)}
+              onClick={() => handleMenuItemClick(item.id)}
             >
               <div className="flex gap-2 items-center">
                 {item.icon}

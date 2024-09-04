@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { AppContext } from "../AppContext";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -14,7 +14,7 @@ export default function TaskCompletionChart() {
 
   const { tasks } = ctx;
 
-  const completedTasks = tasks.filter(task => task.isChecked).length;
+  const completedTasks = tasks.filter((task) => task.isChecked).length;
   const totalTasks = tasks.length;
   const uncompletedTasks = totalTasks - completedTasks;
 
@@ -24,7 +24,7 @@ export default function TaskCompletionChart() {
       {
         label: "Task Completion",
         data: [completedTasks, uncompletedTasks],
-        backgroundColor: ["#563d7c", "#ebebeb57"],
+        backgroundColor: ["#1f6feb", "#ebebeb57"],
         borderWidth: 0,
       },
     ],
@@ -38,14 +38,14 @@ export default function TaskCompletionChart() {
       tooltip: {
         callbacks: {
           label: (tooltipItem: any) => {
-            const label = tooltipItem.label || '';
+            const label = tooltipItem.label || "";
             const value = tooltipItem.raw;
             const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
-            const percentage = ((value / total) * 100).toFixed(2) + '%';
+            const percentage = ((value / total) * 100).toFixed(2) + "%";
             return `${label}: ${percentage}`;
-          }
-        }
-      }
+          },
+        },
+      },
     },
     maintainAspectRatio: true,
   };

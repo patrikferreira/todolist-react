@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Important from "./components/Important";
 import Notes from "./components/Notes";
+import Header from "./components/Header";
 
 export default function App() {
   const ctx = useContext(AppContext);
@@ -15,11 +16,17 @@ export default function App() {
   const { isDarkMode } = ctx;
   return (
     <BrowserRouter>
-      <div className={`flex h-screen ${
-          isDarkMode ? "bg-primaryDark" : "bg-primaryColor"
-        }`}>
+      <Header />
+      <div
+        className={`flex min-h-[calc(100vh-40px)]
+ ${isDarkMode ? "bg-primaryDark" : "bg-primaryColor"}`}
+      >
         <Sidebar />
-        <div className={`flex w-full p-6 transition-all duration-300 ${isDarkMode ? 'bg-primaryDark': 'bg-lightColor'}`}>
+        <div
+          className={`flex w-full p-6 transition-all duration-300 ${
+            isDarkMode ? "bg-primaryDark" : "bg-lightColor"
+          }`}
+        >
           <Routes>
             <Route path="/" element={<MyDay />} />
             <Route path="important" element={<Important />} />
