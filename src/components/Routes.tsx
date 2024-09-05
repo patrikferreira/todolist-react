@@ -12,7 +12,7 @@ export default function Routes() {
     throw new Error("Routes must be used within an AppProvider");
   }
 
-  const { selectedRoute, setSelectedRoute, isDarkMode, tasks, closeSidebar } = ctx;
+  const { selectedRoute, setSelectedRoute, isDarkMode, tasks, closeSidebar, closeRightPanel } = ctx;
   const [selected, setSelected] = React.useState<string>(selectedRoute);
 
   useEffect(() => {
@@ -39,6 +39,7 @@ export default function Routes() {
   const handleMenuItemClick = (itemId: string) => {
     setSelected(itemId);
     closeSidebar();
+    closeRightPanel();
   };
 
   return (

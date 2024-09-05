@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode } from "react";
+import React, { createContext, useState, ReactNode, useEffect } from "react";
 import { Task } from "./Types";
 
 type AppContextType = {
@@ -15,6 +15,9 @@ type AppContextType = {
   isSidebarOpen: boolean;
   openSidebar: () => void;
   closeSidebar: () => void;
+  isRightPanelOpen: boolean;
+  openRightPanel: () => void;
+  closeRightPanel: () => void;
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -28,10 +31,14 @@ export function AppProvider({ children }: AppProviderProps) {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [isRightPanelOpen, setIsRightPanelOpen] = useState<boolean>(false);
 
   const toggleDarkMode = () => {
     setIsDarkMode((prevMode) => !prevMode);
   };
+
+  const openRightPanel = () => setIsRightPanelOpen(true);
+  const closeRightPanel = () => setIsRightPanelOpen(false);
 
   const openSidebar = () => setIsSidebarOpen(true);
   const closeSidebar = () => setIsSidebarOpen(false);
@@ -82,6 +89,9 @@ export function AppProvider({ children }: AppProviderProps) {
         isSidebarOpen,
         openSidebar,
         closeSidebar,
+        isRightPanelOpen,
+        openRightPanel,
+        closeRightPanel,
       }}
     >
       {children}

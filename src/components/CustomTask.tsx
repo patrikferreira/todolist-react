@@ -19,7 +19,7 @@ export default function CustomTask({ selectedTaskId }: Props) {
     throw new Error("AppContext must be used within an AppProvider");
   }
 
-  const { tasks, updateTask, deleteTask } = ctx;
+  const { tasks, updateTask, deleteTask, closeRightPanel } = ctx;
 
   useEffect(() => {
     if (selectedTaskId !== null) {
@@ -42,12 +42,14 @@ export default function CustomTask({ selectedTaskId }: Props) {
         isChecked,
       });
     }
+    closeRightPanel();
   }
 
   function handleDelete() {
     if (editingTask) {
       deleteTask(editingTask.id);
     }
+    closeRightPanel();
   }
 
   if (!editingTask) {

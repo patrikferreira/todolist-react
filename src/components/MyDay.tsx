@@ -29,6 +29,7 @@ export default function MyDay() {
     addTask,
     toggleTaskImportance,
     toggleTaskCompletion,
+    openRightPanel,
   } = ctx;
 
   const MAX_TASKS = 10;
@@ -52,6 +53,7 @@ export default function MyDay() {
   }
 
   function handleTaskClick(id: number) {
+    openRightPanel();
     setSelectedTaskId(id);
   }
 

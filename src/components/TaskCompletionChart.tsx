@@ -51,7 +51,7 @@ export default function TaskCompletionChart() {
   };
 
   return (
-    <div className="w-56 ">
+    <div className="w-48 ">
       <Doughnut data={data} options={options} />
       <div className="flex flex-col items-start gap-2 mt-4">
         {/* Legendas personalizadas em coluna */}

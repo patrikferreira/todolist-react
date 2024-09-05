@@ -27,6 +27,7 @@ export default function Important() {
     addTask,
     toggleTaskImportance,
     toggleTaskCompletion,
+    openRightPanel,
   } = ctx;
 
   const MAX_TASKS = 10;
@@ -49,6 +50,7 @@ export default function Important() {
   }
 
   function handleTaskClick(id: number) {
+    openRightPanel();
     setSelectedTaskId(id);
   }
 
@@ -74,7 +76,7 @@ export default function Important() {
       <Container className="w-full flex flex-col justify-between">
         <div className="flex flex-col gap-4">
           <div className="flex gap-4 justify-between items-center">
-            <DateContainer title="Important" className="min-w-40" />
+            <DateContainer title="Important" className="min-w" />
             <InputContainer
               placeHolder="Search task"
               action={handleSearch}
