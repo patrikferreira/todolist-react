@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { MdOutlineWbSunny } from "react-icons/md";
 import { CgNotes } from "react-icons/cg";
 import { FaRegStar } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AppContext } from "../AppContext";
 
 export default function Routes() {
@@ -13,11 +13,12 @@ export default function Routes() {
   }
 
   const { selectedRoute, setSelectedRoute, isDarkMode, tasks, closeSidebar, closeRightPanel } = ctx;
-  const [selected, setSelected] = React.useState<string>(selectedRoute);
+  const location = useLocation();
 
   useEffect(() => {
-    setSelectedRoute(selected);
-  }, [selected, setSelectedRoute]);
+    const path = location.pathname === "/" ? "myDay" : location.pathname.replace("/", "");
+    setSelectedRoute(path);
+  }, [location.pathname, setSelectedRoute]);
 
   function countTasksByCategory(category: string) {
     switch (category) {
@@ -37,7 +38,7 @@ export default function Routes() {
   ];
 
   const handleMenuItemClick = (itemId: string) => {
-    setSelected(itemId);
+    setSelectedRoute(itemId);
     closeSidebar();
     closeRightPanel();
   };
@@ -50,7 +51,7 @@ export default function Routes() {
             <Link
               to={item.path}
               className={`flex items-center justify-between gap-2 py-2 px-4 cursor-pointer rounded-lg transition-all duration-300 ${
-                selected === item.id
+                selectedRoute === item.id
                   ? isDarkMode
                     ? "bg-primaryDark text-lightColor"
                     : "bg-secondaryColor text-darkColor"
