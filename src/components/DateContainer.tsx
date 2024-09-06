@@ -28,15 +28,15 @@ export default function DateContainer({ title, className }: Props) {
   const formattedDate: string = formatDate(new Date() as any);
 
   return (
-    <div className={`flex flex-col ${className || ""}`}>
+    <div className={`flex flex-col gap-2 ${className || ""}`}>
       <div
         className={`text-lg font-semibold transition-all duration-300 ${
           isDarkMode ? "text-lightColor" : "text-darkColor"
         }`}
       >
-        {title}
+        <h2 className="text-xl">{title}</h2>
       </div>
-      <div className="text-sm text-base">{formattedDate}</div>
+      <div className="text-base">{formattedDate}</div>
     </div>
   );
 }

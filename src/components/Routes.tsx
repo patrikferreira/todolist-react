@@ -12,11 +12,19 @@ export default function Routes() {
     throw new Error("Routes must be used within an AppProvider");
   }
 
-  const { selectedRoute, setSelectedRoute, isDarkMode, tasks, closeSidebar, closeRightPanel } = ctx;
+  const {
+    selectedRoute,
+    setSelectedRoute,
+    isDarkMode,
+    tasks,
+    closeSidebar,
+    closeRightPanel,
+  } = ctx;
   const location = useLocation();
 
   useEffect(() => {
-    const path = location.pathname === "/" ? "myDay" : location.pathname.replace("/", "");
+    const path =
+      location.pathname === "/" ? "myDay" : location.pathname.replace("/", "");
     setSelectedRoute(path);
   }, [location.pathname, setSelectedRoute]);
 
@@ -33,7 +41,12 @@ export default function Routes() {
 
   const menuItems = [
     { id: "myDay", label: "My Day", icon: <MdOutlineWbSunny />, path: "/" },
-    { id: "important", label: "Important", icon: <FaRegStar />, path: "/important" },
+    {
+      id: "important",
+      label: "Important",
+      icon: <FaRegStar />,
+      path: "/important",
+    },
     { id: "notes", label: "Notes", icon: <CgNotes />, path: "/notes" },
   ];
 
@@ -53,13 +66,13 @@ export default function Routes() {
               className={`flex items-center justify-between gap-2 py-2 px-4 cursor-pointer rounded-lg transition-all duration-300 ${
                 selectedRoute === item.id
                   ? isDarkMode
-                    ? "bg-primaryDark text-lightColor"
-                    : "bg-secondaryColor text-darkColor"
-                  : "bg-transparent text-base"
+                    ? "bg-baseDark text-lightColor"
+                    : "bg-baseLight text-darkColor"
+                  : "text-base"
               }`}
               onClick={() => handleMenuItemClick(item.id)}
             >
-              <div className="flex gap-2 items-center">
+              <div className="flex gap-2 items-center font-semibold">
                 {item.icon}
                 {item.label}
               </div>

@@ -72,7 +72,7 @@ export default function Important() {
   }, [taskIdsWithTransition]);
 
   return (
-    <div className="flex w-full gap-6 h-full animate-fade-in-left transition-all duration-300">
+    <div className="flex w-full gap-4 h-full animate-fade-in-left transition-all duration-300">
       <Container className="w-full flex flex-col justify-between">
         <div className="flex flex-col gap-4">
           <div className="flex gap-4 justify-between items-center">
@@ -95,7 +95,7 @@ export default function Important() {
                 toggleTaskImportance={toggleTaskImportance}
                 isNew={taskIdsWithTransition.includes(task.id)}
                 isSelected={task.id === selectedTaskId}
-                onClick={() => handleTaskClick(task.id)}
+                onTaskClick={handleTaskClick}
               />
             ))}
           </ul>

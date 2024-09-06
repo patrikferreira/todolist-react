@@ -10,7 +10,7 @@ type Props = {
   toggleTaskImportance: (id: number) => void;
   isNew: boolean;
   isSelected: boolean;
-  onClick: () => void;
+  onTaskClick: (id: number) => void; // Renamed to onTaskClick
 };
 
 export default function TaskItem({
@@ -20,20 +20,19 @@ export default function TaskItem({
   toggleTaskImportance,
   isNew,
   isSelected,
-  onClick,
+  onTaskClick, // Renamed to onTaskClick
 }: Props) {
   const backgroundColorClass = isSelected
     ? isDarkMode
-      ? "bg-primaryDark text-white"
-      : "bg-secondaryColor text-darkColor"
+      ? "bg-baseDark text-lightColor"
+      : "bg-baseLight text-darkColor"
     : isDarkMode
     ? "bg-secondaryDark text-lightColor"
     : "bg-primaryColor text-darkColor";
 
   return (
     <li
-      onClick={onClick}
-      className={`flex justify-between items-center px-4 cursor-pointer rounded-lg transition-all duration-300 hover:brightness-90 ${backgroundColorClass} ${
+      className={`flex justify-between items-center px-4 rounded-lg transition-all duration-300 hover:brightness-90 ${backgroundColorClass} ${
         isNew ? "animate-fade-in-left" : ""
       }`}
     >
@@ -42,7 +41,10 @@ export default function TaskItem({
           action={() => toggleTaskCompletion(task.id)}
           isChecked={task.isChecked}
         />
-        <p className={`py-3 w-full ${task.isChecked ? "line-through" : ""}`}>
+        <p
+          className={`py-3 w-full cursor-pointer ${task.isChecked ? "line-through" : ""}`}
+          onClick={() => onTaskClick(task.id)} // Trigger onTaskClick here
+        >
           {task.description}
         </p>
       </div>

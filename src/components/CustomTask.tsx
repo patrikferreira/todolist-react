@@ -52,6 +52,13 @@ export default function CustomTask({ selectedTaskId }: Props) {
     closeRightPanel();
   }
 
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSave();
+    }
+  }
+
   if (!editingTask) {
     return <div>No task available for customization.</div>;
   }
@@ -61,7 +68,7 @@ export default function CustomTask({ selectedTaskId }: Props) {
       className={`flex flex-col justify-between gap-4 h-full transition-all duration-300 ${
         ctx.isDarkMode
           ? "bg-secondaryDark text-lightColor"
-          : "bg-primaryColor text-darkColor"
+          : "bg-lightColor text-darkColor"
       }`}
     >
       <div className="flex flex-col gap-2">
@@ -69,10 +76,11 @@ export default function CustomTask({ selectedTaskId }: Props) {
           type="text"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className={`py-2 px-4 rounded-md transition-all duration-300 ${
+          onKeyDown={handleKeyDown}
+          className={`py-2 px-4 rounded-md transition-all outline-none duration-300 ${
             ctx.isDarkMode
-              ? "bg-primaryDark text-lightColor"
-              : "bg-secondaryColor text-darkColor"
+              ? "bg-baseDark text-lightColor"
+              : "bg-baseLight text-darkColor"
           }`}
           placeholder="Task Description"
         />

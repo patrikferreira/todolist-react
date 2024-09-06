@@ -7,16 +7,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primaryColor': '#f5f5f5',
-        'secondaryColor': '#ebebeb',
-        'lightColor': '#ffff',
-        'darkColor': '#101010',
-        'base': '#6f7072',
-        'primaryDark': '#15161a',
-        'secondaryDark': '#23272c',
-        'accent': '#1f6feb',
-        'borderColor': '#7d7d7d0f',
-        'redColor': '#dc3545',
+        'accent': '#2680ee',
+        'lightColor': '#fefefe',
+        'darkColor': '#101214',
+        'secondaryDark': '#1d1f21',
+        'base': '#7c7a7a',
+        'baseDark': '#000000',
+        'baseLight': '#f0f0f0',
+        'borderLight': 'rgba(0, 0, 0, 0.1)',
+        'borderDark': 'rgba(255, 255, 255, 0.1)',
+        'redColor': '#de4848',
+      },
+      boxShadow: {
+        'customShadow': '0px 0px 1px 1px rgba(0,0,0,0.11)'
       },
       animation: {
         'fade-in-left': 'fadeInLeft 0.3s ease-out forwards',

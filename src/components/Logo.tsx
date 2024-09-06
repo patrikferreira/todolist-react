@@ -13,14 +13,13 @@ export default function Logo() {
   const { isDarkMode } = ctx;
 
   return (
-    <div className="flex gap-2 p-2 items-center">
-      <BsCheckAll className="text-4xl text-accent" />
+    <div className="flex gap-2 py-2 px-4 items-center">
       <h1
-        className={`text-xl font-semibold transition-all duration-300 ${
+        className={`text-2xl font-semibold transition-all duration-300 ${
           isDarkMode ? "text-lightColor" : "text-darkColor"
         }`}
       >
-        Daily To Do
+        Daily Tasks
       </h1>
     </div>
   );

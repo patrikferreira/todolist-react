@@ -6,7 +6,7 @@ type Props = {
   placeHolder?: string;
   iconBtn?: React.ReactNode;
   action?: (value: string) => void;
-  isSearchMode?: boolean; // Add this prop to distinguish between search and create modes
+  isSearchMode?: boolean;
 };
 
 export default function InputContainer({
@@ -14,7 +14,7 @@ export default function InputContainer({
   placeHolder,
   iconBtn,
   action,
-  isSearchMode = false, // Default to false if not provided
+  isSearchMode = false,
 }: Props) {
   const ctx = useContext(AppContext);
   const [inputValue, setInputValue] = useState("");
@@ -28,12 +28,12 @@ export default function InputContainer({
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(event.target.value);
     if (isSearchMode && action) {
-      action(event.target.value); // Trigger search action on input change if in search mode
+      action(event.target.value);
     }
   }
 
   function handleButtonClick() {
-    if (!isSearchMode && action) { // Only trigger the action if not in search mode
+    if (!isSearchMode && action) {
       action(inputValue);
       setInputValue("");
     }
@@ -47,7 +47,7 @@ export default function InputContainer({
 
   return (
     <div
-      className={`flex py-2 px-4 justify-between items-center rounded-full transition-all duration-300 ${isDarkMode ? 'bg-primaryDark' : 'bg-secondaryColor'} ${className || ""}`}
+      className={`flex py-2 px-4 justify-between items-center rounded-full bg-base transition-all text-base duration-300 ${isDarkMode ? 'bg-baseDark' : 'bg-baseLight'} ${className || ""}`}
     >
       <input
         type="text"
@@ -55,8 +55,8 @@ export default function InputContainer({
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
-        className={`outline-none w-full transition-all duration-300 ${
-          isDarkMode ? "bg-primaryDark text-lightColor" : "bg-secondaryColor text-darkColor"
+        className={`outline-none w-full transition-all duration-300  ${
+          isDarkMode ? "bg-baseDark text-lightColor" : "bg-baseLight text-darkColor"
         }`}
       />
       <button onClick={handleButtonClick}>{iconBtn}</button>
