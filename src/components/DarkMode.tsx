@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { FaRegMoon } from "react-icons/fa";
 import { AppContext } from "../AppContext";
 
@@ -12,9 +12,7 @@ export default function DarkMode() {
   const { isDarkMode, toggleDarkMode } = ctx;
 
   return (
-    <div
-      className="flex justify-between items-center py-2 px-4"
-    >
+    <div className="flex justify-between items-center py-2 px-4">
       <div className="flex gap-2 items-center font-semibold text-base">
         <FaRegMoon />
         Dark mode
