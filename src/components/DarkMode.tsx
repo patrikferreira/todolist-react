@@ -26,7 +26,7 @@ export default function DarkMode() {
         }`}
       >
         <div
-          className={`absolute h-3 w-3 rounded-full bg-white transition-transform duration-300 ${
+          className={`absolute h-3 w-3 shadow-md rounded-full bg-white transition-transform duration-300 ${
             isDarkMode ? "translate-x-3" : "translate-x-0"
           }`}
         />

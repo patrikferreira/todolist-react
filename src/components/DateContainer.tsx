@@ -20,7 +20,6 @@ export default function DateContainer({ title, className }: Props) {
       weekday: "short",
       month: "long",
       day: "numeric",
-      year: "numeric",
     };
     return date.toLocaleDateString("en-US", options);
   };

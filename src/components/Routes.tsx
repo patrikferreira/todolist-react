@@ -47,7 +47,6 @@ export default function Routes() {
       icon: <FaRegStar />,
       path: "/important",
     },
-    { id: "notes", label: "Notes", icon: <CgNotes />, path: "/notes" },
   ];
 
   const handleMenuItemClick = (itemId: string) => {
@@ -63,10 +62,10 @@ export default function Routes() {
           <li key={item.id} className="list-none">
             <Link
               to={item.path}
-              className={`flex items-center justify-between gap-2 py-2 px-4 cursor-pointer rounded-lg transition-all duration-300 ${
+              className={`flex items-center justify-between gap-2 py-2 px-4 cursor-pointer rounded-md transition-all duration-300 ${
                 selectedRoute === item.id
                   ? isDarkMode
-                    ? "bg-baseDark text-lightColor"
+                    ? "bg-baseDark text-lightColor shadow-md"
                     : "bg-baseLight text-darkColor"
                   : "text-base"
               }`}

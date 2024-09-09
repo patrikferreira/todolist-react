@@ -24,7 +24,7 @@ export default function TaskCompletionChart() {
       {
         label: "Task Completion",
         data: [completedTasks, uncompletedTasks],
-        backgroundColor: ["#1f6feb", "#ebebeb57"],
+        backgroundColor: ["#4b90e8", "#75757559"],
         borderWidth: 0,
       },
     ],
@@ -60,7 +60,7 @@ export default function TaskCompletionChart() {
           <span>Completed</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 rounded-full bg-[#ebebeb]"></div>
+          <div className="w-4 h-4 rounded-full bg-[#75757559]"></div>
           <span>Uncompleted</span>
         </div>
       </div>

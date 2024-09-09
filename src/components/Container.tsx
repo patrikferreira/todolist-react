@@ -17,10 +17,10 @@ export default function Container({ children, className }: Props) {
 
   return (
     <div
-      className={`p-4 md:rounded-lg md:shadow-customShadow transition-all duration-300  ${
+      className={`p-4 shadow-md md:rounded-2xl transition-all duration-300  ${
         isDarkMode
-          ? "bg-secondaryDark text-lightColor"
-          : "bg-primaryColor text-darkColor "
+          ? "bg-darkColor text-lightColor border-borderDark"
+          : "bg-lightColor text-darkColor border-borderLight"
       } ${className || ""}`}
     >
       {children}

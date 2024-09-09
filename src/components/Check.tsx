@@ -9,7 +9,7 @@ export default function Check({ isChecked, action }: Props) {
   return (
     <div
       onClick={action}
-      className={`h-4 w-4 rounded-md flex items-center justify-center ${
+      className={`h-5 w-5 rounded-full flex items-center justify-center ${
         isChecked ? "bg-accent border border-accent" : "border border-base"
       }`}
     >

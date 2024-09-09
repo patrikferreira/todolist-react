@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
-import { BsCheckAll } from "react-icons/bs";
 
 
 export default function Logo() {
@@ -13,11 +12,9 @@ export default function Logo() {
   const { isDarkMode } = ctx;
 
   return (
-    <div className="flex gap-2 py-2 px-4 items-center">
+    <div className="flex gap-2 items-center">
       <h1
-        className={`text-2xl font-semibold transition-all duration-300 ${
-          isDarkMode ? "text-lightColor" : "text-darkColor"
-        }`}
+        className={`text-xl font-semibold transition-all duration-300 text-lightColor`}
       >
         Daily Tasks
       </h1>

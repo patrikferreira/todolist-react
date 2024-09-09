@@ -24,9 +24,9 @@ export default function RightPanel({
         isRightPanelOpen
           ? "flex animate-fade-in-left transition-all duration-300"
           : "hidden"
-      } md:flex flex-col md:gap-4 h-full w-full md:w-72 min-w-72 fixed md:relative top-0 right-0 md:bg-transparent z-50 transition-all duration-300`}
+      } md:flex flex-col md:gap-4 h-full w-full md:w-72 min-w-72 fixed md:relative md:p-0 top-0 right-0 md:bg-transparent z-50 transition-all duration-300`}
     >
-      <Container className="h-full flex flex-col gap-4">
+      <Container className="flex flex-col gap-4 h-1/2 md:h-full">
         <div className="flex justify-between items-center">
           <h2
             className={`text-xl font-semibold transition-all duration-300 ${
@@ -39,8 +39,8 @@ export default function RightPanel({
         </div>
         <CustomTask selectedTaskId={selectedTaskId} />
       </Container>
-      <Container>
-        <div className="flex justify-center items-center h-full">
+      <Container className="h-1/2 md:h-min border-2 border-transparent  hover:border-borderDark">
+        <div className="flex justify-center items-center  rounded-2xl h-full">
           <TaskCompletionChart />
         </div>
       </Container>

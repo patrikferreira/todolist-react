@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import DarkMode from "./DarkMode";
-import Logo from "./Logo";
 import Routes from "./Routes";
 import Separator from "./Separator";
 import { AppContext } from "../AppContext";
@@ -17,16 +16,15 @@ export default function Sidebar() {
   return (
     <>
       <nav
-        className={`fixed lg:relative top-[calc(0+40px)] left-0 min-h-[calc(100vh-40px)]
- w-72 min-w-72 flex flex-col gap-2 p-4  transition-all duration-300 z-30 transform border-r ${
+        className={`fixed shadow-md lg:relative min-h-full  left-0
+ w-72 min-w-72 flex flex-col gap-2 p-4 transition-all duration-300 z-30 transform  ${
    isDarkMode
-     ? "bg-darkColor border-r-borderDark"
-     : "bg-lightColor border-r-borderLight"
+     ? "bg-darkColor "
+     : "bg-lightColor "
  } ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         } lg:translate-x-0`}
       >
-        <Logo />
         <Routes />
         <Separator />
         <DarkMode />

@@ -67,7 +67,7 @@ export default function CustomTask({ selectedTaskId }: Props) {
     <div
       className={`flex flex-col justify-between gap-4 h-full transition-all duration-300 ${
         ctx.isDarkMode
-          ? "bg-secondaryDark text-lightColor"
+          ? "bg-darkColor text-lightColor"
           : "bg-lightColor text-darkColor"
       }`}
     >
@@ -112,13 +112,13 @@ export default function CustomTask({ selectedTaskId }: Props) {
       <div className="flex flex-col">
         <button
           onClick={handleSave}
-          className="bg-accent text-white p-2 rounded-md"
+          className="bg-accent text-white p-2 rounded-md shadow-md"
         >
           Save Changes
         </button>
         <button
           onClick={handleDelete}
-          className="bg-redColor text-white p-2 rounded-md mt-2"
+          className="bg-redColor text-white p-2 rounded-md mt-2 shadow-md"
         >
           Delete Task
         </button>

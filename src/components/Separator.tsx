@@ -9,5 +9,5 @@ export default function Separator() {
   }
 
   const { isDarkMode } = ctx;
-  return <div className={`w-full h-[0.5px] transition-all duration-300 ${isDarkMode ? 'bg-borderDark': 'bg-borderLight'}`}></div>;
+  return <div className={`w-full h-[0.5px] transition-all duration-300 ${isDarkMode ? 'bg-baseDark': 'bg-baseLight'}`}></div>;
 }
