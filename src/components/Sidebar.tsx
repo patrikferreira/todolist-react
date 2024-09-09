@@ -3,6 +3,7 @@ import DarkMode from "./DarkMode";
 import Routes from "./Routes";
 import Separator from "./Separator";
 import { AppContext } from "../AppContext";
+import Settings from "./Settings";
 
 export default function Sidebar() {
   const ctx = useContext(AppContext);
@@ -28,6 +29,7 @@ export default function Sidebar() {
         <Routes />
         <Separator />
         <DarkMode />
+        <Settings />
       </nav>
       {isSidebarOpen && (
         <div

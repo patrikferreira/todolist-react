@@ -18,6 +18,8 @@ type AppContextType = {
   isRightPanelOpen: boolean;
   openRightPanel: () => void;
   closeRightPanel: () => void;
+  isCapitalize: boolean;
+  toggleCapitalize: () => void;
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -29,12 +31,17 @@ type AppProviderProps = {
 export function AppProvider({ children }: AppProviderProps) {
   const [selectedRoute, setSelectedRoute] = useState<string>("myDay");
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isCapitalize, setIsCapitalize] = useState<boolean>(false); // Estado de capitalize
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [isRightPanelOpen, setIsRightPanelOpen] = useState<boolean>(false);
 
   const toggleDarkMode = () => {
     setIsDarkMode((prevMode) => !prevMode);
+  };
+
+  const toggleCapitalize = () => {
+    setIsCapitalize((prev) => !prev);
   };
 
   const openRightPanel = () => setIsRightPanelOpen(true);
@@ -92,6 +99,8 @@ export function AppProvider({ children }: AppProviderProps) {
         isRightPanelOpen,
         openRightPanel,
         closeRightPanel,
+        isCapitalize,
+        toggleCapitalize,
       }}
     >
       {children}

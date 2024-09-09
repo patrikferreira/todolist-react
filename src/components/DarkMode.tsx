@@ -14,7 +14,6 @@ export default function DarkMode() {
   return (
     <div
       className="flex justify-between items-center py-2 px-4"
-      onClick={toggleDarkMode}
     >
       <div className="flex gap-2 items-center font-semibold text-base">
         <FaRegMoon />
@@ -24,6 +23,7 @@ export default function DarkMode() {
         className={`relative h-5 w-8 rounded-full flex items-center p-1 cursor-pointer transition-all duration-300 ${
           isDarkMode ? "bg-accent" : "bg-base"
         }`}
+        onClick={toggleDarkMode}
       >
         <div
           className={`absolute h-3 w-3 shadow-md rounded-full bg-white transition-transform duration-300 ${

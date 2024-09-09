@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Task } from "../Types";
 import { GoStar, GoStarFill } from "react-icons/go";
 import Check from "./Check";
+import { AppContext } from "../AppContext";
 
 type Props = {
   task: Task;
@@ -22,6 +23,9 @@ export default function TaskItem({
   isSelected,
   onTaskClick,
 }: Props) {
+  const ctx = useContext(AppContext);
+  const { isCapitalize } = ctx || {};
+
   const backgroundColorClass = isSelected
     ? isDarkMode
       ? "bg-baseDark text-lightColor shadow-md"
@@ -42,7 +46,9 @@ export default function TaskItem({
           isChecked={task.isChecked}
         />
         <p
-          className={`py-3 w-full cursor-pointer ${task.isChecked ? "line-through" : ""}`}
+          className={`py-3 w-full cursor-pointer ${
+            task.isChecked ? "line-through" : ""
+          } ${isCapitalize ? "capitalize" : ""}`}
           onClick={() => onTaskClick(task.id)}
         >
           {task.description}

@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Important from "./components/Important";
 import Header from "./components/Header";
+import SettingsPage from "./components/SettingsPage";
 
 export default function App() {
   const ctx = useContext(AppContext);
@@ -28,6 +29,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<MyDay />} />
             <Route path="important" element={<Important />} />
+            <Route path="settingspage" element={<SettingsPage />} />
           </Routes>
         </div>
       </div>
