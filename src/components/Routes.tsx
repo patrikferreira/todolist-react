@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { MdOutlineWbSunny } from "react-icons/md";
-import { CgNotes } from "react-icons/cg";
 import { FaRegStar } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import { AppContext } from "../AppContext";

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Task } from "../Types";
 import { GoStar, GoStarFill } from "react-icons/go";
 import Check from "./Check";

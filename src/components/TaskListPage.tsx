@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { IoSearch } from "react-icons/io5";
 import { IoIosAdd } from "react-icons/io";
 import { AppContext } from "../AppContext";
@@ -9,17 +9,19 @@ import DateContainer from "./DateContainer";
 import { Task } from "../Types";
 import { generateUniqueId } from "../Utils";
 import RightPanel from "./RightPanel";
+import ToastManager from "./ToastManager";
 
 type Props = {
   title: string;
   filterImportant?: boolean;
-}
+};
 
 export default function TaskListPage({ title, filterImportant = false }: Props) {
   const ctx = useContext(AppContext);
   const [searchQuery, setSearchQuery] = useState("");
   const [taskIdsWithTransition, setTaskIdsWithTransition] = useState<number[]>([]);
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
+  const [toastMessage, setToastMessage] = useState<string>("");
 
   if (!ctx) {
     throw new Error("AppContext must be used within an AppProvider");
@@ -30,7 +32,11 @@ export default function TaskListPage({ title, filterImportant = false }: Props) 
   const MAX_TASKS = 10;
 
   function handleAddTask(description: string) {
-    if (description.trim() && tasks.length < MAX_TASKS) {
+    if (description.trim()) {
+      if (tasks.length >= MAX_TASKS) {
+        setToastMessage("Maximum number of tasks reached.");
+        return;
+      }
       const newTaskItem: Task = {
         id: generateUniqueId(),
         description,
@@ -39,6 +45,7 @@ export default function TaskListPage({ title, filterImportant = false }: Props) 
       };
       addTask(newTaskItem);
       setTaskIdsWithTransition([newTaskItem.id]);
+      setToastMessage("");
     }
   }
 
@@ -109,6 +116,9 @@ export default function TaskListPage({ title, filterImportant = false }: Props) 
       </Container>
 
       <RightPanel selectedTaskId={selectedTaskId} />
+
+      {/* Exibir o Toast se houver mensagem */}
+      {toastMessage && <ToastManager message={toastMessage} />}
     </div>
   );
 }

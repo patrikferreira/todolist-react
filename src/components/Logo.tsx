@@ -9,8 +9,6 @@ export default function Logo() {
     throw new Error("DarkMode must be used within an AppProvider");
   }
 
-  const { isDarkMode } = ctx;
-
   return (
     <div className="flex gap-2 items-center">
       <h1

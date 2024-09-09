@@ -10,7 +10,7 @@ export default function Header() {
     throw new Error("AppContext must be used within an AppProvider");
   }
 
-  const { isDarkMode, openSidebar } = ctx;
+  const { openSidebar } = ctx;
 
   return (
     <div className={`flex z-40 items-center w-full h-10  px-4 md:px-8 transition-all duration-300 bg-accent text-lightColor`}>
