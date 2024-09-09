@@ -12,7 +12,7 @@ export default function SettingsPage() {
   const { isCapitalize, toggleCapitalize, isDarkMode } = ctx;
 
   return (
-    <div className="flex w-full gap-4 h-full animate-fade-in-left transition-all duration-300">
+    <div className="flex w-full gap-4 p-4 h-full animate-fade-in-left transition-all duration-300">
       <div
         className={`transition-all duration-300 flex flex-col gap-4 ${
           isDarkMode ? "text-lightColor" : "text-darkColor"
