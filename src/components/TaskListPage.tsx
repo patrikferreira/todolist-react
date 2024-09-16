@@ -2,24 +2,32 @@ import { useContext, useState, useEffect } from "react";
 import { IoSearch } from "react-icons/io5";
 import { IoIosAdd } from "react-icons/io";
 import { AppContext } from "../AppContext";
-import Container from "./Container";
-import InputContainer from "./InputContainer";
 import TaskItem from "./TaskItem";
-import DateContainer from "./DateContainer";
 import { Task } from "../Types";
 import { generateUniqueId } from "../Utils";
 import RightPanel from "./RightPanel";
 import ToastManager from "./ToastManager";
+import Header from "./Header";
+import { BsLayoutTextSidebarReverse, BsWindowSidebar } from "react-icons/bs";
+import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
+import { RiArrowUpDownLine } from "react-icons/ri";
+import { IoMdAdd } from "react-icons/io";
+import InputContainer from "./InputContainer";
 
 type Props = {
   title: string;
   filterImportant?: boolean;
 };
 
-export default function TaskListPage({ title, filterImportant = false }: Props) {
+export default function TaskListPage({
+  title,
+  filterImportant = false,
+}: Props) {
   const ctx = useContext(AppContext);
   const [searchQuery, setSearchQuery] = useState("");
-  const [taskIdsWithTransition, setTaskIdsWithTransition] = useState<number[]>([]);
+  const [taskIdsWithTransition, setTaskIdsWithTransition] = useState<number[]>(
+    []
+  );
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
   const [toastMessage, setToastMessage] = useState<string>("");
 
@@ -27,7 +35,15 @@ export default function TaskListPage({ title, filterImportant = false }: Props) 
     throw new Error("AppContext must be used within an AppProvider");
   }
 
-  const { isDarkMode, tasks, addTask, toggleTaskImportance, toggleTaskCompletion, openRightPanel } = ctx;
+  const {
+    isDarkMode,
+    tasks,
+    addTask,
+    toggleTaskImportance,
+    toggleTaskCompletion,
+    openRightPanel,
+    openSidebar,
+  } = ctx;
 
   const MAX_TASKS = 10;
 
@@ -59,8 +75,8 @@ export default function TaskListPage({ title, filterImportant = false }: Props) 
   }
 
   const filteredTasks = tasks
-    .filter(task => (filterImportant ? task.isImportant : true))
-    .filter(task =>
+    .filter((task) => (filterImportant ? task.isImportant : true))
+    .filter((task) =>
       task.description.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
@@ -78,11 +94,15 @@ export default function TaskListPage({ title, filterImportant = false }: Props) 
   }, [taskIdsWithTransition]);
 
   return (
-    <div className="flex w-full gap-4 h-full animate-fade-in-left transition-all duration-300">
-      <Container className="w-full flex flex-col justify-between">
+    <div
+      className={`flex h-full p-4 gap-4 animate-fade-in-left transition-all duration-300 ${
+        isDarkMode ? " text-lightColor" : " text-darkColor"
+      }`}
+    >
+      <div className="flex flex-col justify-between w-full gap-2">
         <div className="flex flex-col gap-4">
-          <div className="flex gap-4 justify-between items-center">
-            <DateContainer title={title} className="min-w" />
+          <div className="flex items-center gap-4">
+            <h2 className="min-w-fit text-lg">{title}</h2>
             <InputContainer
               placeHolder="Search task"
               action={handleSearch}
@@ -90,7 +110,19 @@ export default function TaskListPage({ title, filterImportant = false }: Props) 
               className="w-full"
               isSearchMode={true}
             />
+
+            <button
+              className={`flex shadow-sm items-center border gap-2 py-1 px-3 rounded-xl transition-all duration-300 ${
+                isDarkMode
+                  ? "border-baseDark text-lightColor"
+                  : "border-baseLight text-darkColor"
+              }`}
+            >
+              <RiArrowUpDownLine />
+              Sort
+            </button>
           </div>
+
           <ul className="flex flex-col gap-2 py-2">
             {sortedTasks.map((task) => (
               <TaskItem
@@ -113,11 +145,8 @@ export default function TaskListPage({ title, filterImportant = false }: Props) 
           iconBtn={<IoIosAdd className="text-base text-xl" />}
           isSearchMode={false}
         />
-      </Container>
-
-      <RightPanel selectedTaskId={selectedTaskId} />
-
-      {/* Exibir o Toast se houver mensagem */}
+      </div>
+      {/* <RightPanel selectedTaskId={selectedTaskId} /> */}
       {toastMessage && <ToastManager message={toastMessage} />}
     </div>
   );

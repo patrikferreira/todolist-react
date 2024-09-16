@@ -19,17 +19,18 @@ export default function Routes() {
     closeSidebar,
     closeRightPanel,
   } = ctx;
+
   const location = useLocation();
 
   useEffect(() => {
     const path =
-      location.pathname === "/" ? "myDay" : location.pathname.replace("/", "");
+      location.pathname === "/myday" ? "myday" : location.pathname.replace("/", "");
     setSelectedRoute(path);
   }, [location.pathname, setSelectedRoute]);
 
   function countTasksByCategory(category: string) {
     switch (category) {
-      case "myDay":
+      case "myday":
         return tasks.length;
       case "important":
         return tasks.filter((task) => task.isImportant).length;
@@ -39,7 +40,7 @@ export default function Routes() {
   }
 
   const menuItems = [
-    { id: "myDay", label: "My Day", icon: <MdOutlineWbSunny />, path: "/" },
+    { id: "myday", label: "My Day", icon: <MdOutlineWbSunny />, path: "/myday" },
     {
       id: "important",
       label: "Important",
@@ -56,21 +57,23 @@ export default function Routes() {
 
   return (
     <div>
-      <ul className="flex flex-col py-2 gap-2">
+      <ul className="flex flex-col gap-2">
         {menuItems.map((item) => (
           <li key={item.id} className="list-none">
             <Link
               to={item.path}
-              className={`flex items-center justify-between gap-2 py-2 px-4 cursor-pointer rounded-md transition-all duration-300 ${
-                selectedRoute === item.id
+              className={`flex items-center py-2 px-4 justify-between gap-2 cursor-pointer rounded-md transition-all duration-300
+                ${selectedRoute === item.id
                   ? isDarkMode
-                    ? "bg-baseDark text-lightColor shadow-md"
+                    ? "bg-baseDark text-lightColor"
                     : "bg-baseLight text-darkColor"
-                  : "text-base"
-              }`}
+                  : isDarkMode
+                    ? "text-lightColor"
+                    : "text-darkColor"
+                }`}
               onClick={() => handleMenuItemClick(item.id)}
             >
-              <div className="flex gap-2 items-center font-semibold">
+              <div className="flex gap-2 items-center">
                 {item.icon}
                 {item.label}
               </div>

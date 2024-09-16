@@ -29,9 +29,9 @@ type AppProviderProps = {
 };
 
 export function AppProvider({ children }: AppProviderProps) {
-  const [selectedRoute, setSelectedRoute] = useState<string>("myDay");
+  const [selectedRoute, setSelectedRoute] = useState<string>("myday");
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
-  const [isCapitalize, setIsCapitalize] = useState<boolean>(false); // Estado de capitalize
+  const [isCapitalize, setIsCapitalize] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [isRightPanelOpen, setIsRightPanelOpen] = useState<boolean>(false);

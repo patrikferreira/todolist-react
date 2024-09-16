@@ -4,3 +4,8 @@ export type Task = {
     isChecked: boolean;
     isImportant: boolean;
 }
+
+export type Setting = {
+    isChecked?: boolean;
+    label: string;
+}

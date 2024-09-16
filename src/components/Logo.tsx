@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
+import { RxBoxModel } from "react-icons/rx";
 
 
 export default function Logo() {
@@ -9,12 +10,15 @@ export default function Logo() {
     throw new Error("DarkMode must be used within an AppProvider");
   }
 
+  const { isDarkMode } = ctx;
+
   return (
-    <div className="flex gap-2 items-center">
+    <div className={`flex gap-2 items-center`}>
+      <RxBoxModel className="text-3xl" />
       <h1
-        className={`text-xl font-semibold transition-all duration-300 text-lightColor`}
+        className={`text-xl font-semibold`}
       >
-        Daily Tasks
+        JustDO
       </h1>
     </div>
   );
