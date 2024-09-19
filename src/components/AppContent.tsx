@@ -1,8 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import LoginPage from "./LoginPage";
+import SignIn from "./SignIn";
 import MyDay from "./MyDay";
 import Important from "./Important";
-import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 export default function AppContent() {
@@ -10,11 +9,11 @@ export default function AppContent() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {location.pathname === "/" ? null : <Header />}
-      <div className="flex min-h-[calc(100vh-48px)]">
+      {/* {location.pathname === "/" ? null : <Header />} */}
+      <div className="flex min-h-screen">
         {location.pathname === "/" ? null : <Sidebar />}
         <Routes>
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/" element={<SignIn />} />
           <Route path="myday" element={<MyDay />} />
           <Route path="important" element={<Important />} />
         </Routes>

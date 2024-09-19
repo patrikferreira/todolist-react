@@ -3,6 +3,7 @@ export type Task = {
     description: string;
     isChecked: boolean;
     isImportant: boolean;
+    createdAt: Date;
 }
 
 export type Setting = {

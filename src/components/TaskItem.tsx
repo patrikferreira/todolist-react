@@ -1,72 +1,59 @@
 import { useContext } from "react";
 import { Task } from "../Types";
-import { GoStar, GoStarFill } from "react-icons/go";
-import Check from "./Check";
 import { AppContext } from "../AppContext";
+import Check from "./Check";
+import ImportantCheck from "./ImportantCheck";
+import { CiMenuKebab } from "react-icons/ci";
 
 type Props = {
   task: Task;
-  isDarkMode: boolean;
-  toggleTaskCompletion: (id: number) => void;
-  toggleTaskImportance: (id: number) => void;
-  isNew: boolean;
-  isSelected: boolean;
-  onTaskClick: (id: number) => void;
+  className?: string;
 };
 
-export default function TaskItem({
-  task,
-  isDarkMode,
-  toggleTaskCompletion,
-  toggleTaskImportance,
-  isNew,
-  isSelected,
-  onTaskClick,
-}: Props) {
+export default function TaskItem({ task, className }: Props) {
   const ctx = useContext(AppContext);
-  const { isCapitalize } = ctx || {};
 
-  const backgroundColorClass = isSelected
-    ? isDarkMode
-      ? "bg-baseDark text-lightColor shadow-md"
-      : "bg-baseLight text-darkColor"
-    : isDarkMode
-    ? "bg-darkColor text-lightColor"
-    : "bg-lightColor text-darkColor";
+  if (!ctx) {
+    throw new Error("AppContext must be used within an AppProvider");
+  }
+
+  const { toggleTaskCompletion, toggleTaskImportance } = ctx;
+
+  function formatDate(date: Date): string {
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = date.toLocaleString("en-US", { month: "short" });
+    const hours = date.getHours() % 12 || 12;
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const ampm = date.getHours() >= 12 ? "PM" : "AM";
+    return `${month} ${day}, ${hours}:${minutes}${ampm}`;
+  }
 
   return (
-    <li
-      className={`flex justify-between items-center px-4 rounded-lg transition-all duration-300 hover:brightness-90 ${backgroundColorClass} ${
-        isNew ? "animate-fade-in-left" : ""
-      }`}
-    >
-      <div className="flex items-center gap-4 w-full">
-        <Check
-          action={() => toggleTaskCompletion(task.id)}
-          isChecked={task.isChecked}
-        />
-        <p
-          className={`py-3 w-full cursor-pointer ${
-            task.isChecked ? "line-through" : ""
-          } ${isCapitalize ? "capitalize" : ""}`}
-          onClick={() => onTaskClick(task.id)}
-        >
-          {task.description}
-        </p>
+    <li key={task.id} className={`animate-fade-in-down flex ${className}`}>
+      <div className="flex gap-2 w-full">
+        <div className="pt-1">
+          <Check
+            action={() => toggleTaskCompletion(task.id)}
+            isChecked={task.isChecked}
+          />
+        </div>
+        <div className="flex flex-col gap-1 w-full cursor-pointer">
+          <p>{task.description}</p>
+          <span className="text-xs text-baseColor">
+            {formatDate(task.createdAt)}
+          </span>
+        </div>
       </div>
-      <button
-        className="px-1 transition-transform duration-300 ease-in-out transform active:scale-90"
-        onClick={(e) => {
-          e.stopPropagation();
-          toggleTaskImportance(task.id);
-        }}
-      >
-        {task.isImportant ? (
-          <GoStarFill className="text-accent text-lg" />
-        ) : (
-          <GoStar className="text-base text-lg" />
-        )}
-      </button>
+
+      <div className="pt-1 flex items-center gap-2">
+        <ImportantCheck
+          action={() => toggleTaskImportance(task.id)}
+          isChecked={task.isImportant}
+        />
+        <button>
+            <CiMenuKebab />
+        </button>
+      </div>
     </li>
   );
 }
