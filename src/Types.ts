@@ -6,7 +6,8 @@ export type Task = {
     createdAt: Date;
 }
 
-export type Setting = {
-    isChecked?: boolean;
-    label: string;
-}
+export type TaskList = {
+    id: string;
+    title: string;
+    tasks: Task[];
+};

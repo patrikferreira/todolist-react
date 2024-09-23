@@ -3,14 +3,14 @@ import { Task } from "../Types";
 import { AppContext } from "../AppContext";
 import Check from "./Check";
 import ImportantCheck from "./ImportantCheck";
-import { CiMenuKebab } from "react-icons/ci";
 
 type Props = {
   task: Task;
+  listId: string;
   className?: string;
 };
 
-export default function TaskItem({ task, className }: Props) {
+export default function TaskItem({ task, listId, className }: Props) {
   const ctx = useContext(AppContext);
 
   if (!ctx) {
@@ -29,30 +29,33 @@ export default function TaskItem({ task, className }: Props) {
   }
 
   return (
-    <li key={task.id} className={`animate-fade-in-down flex ${className}`}>
+    <li className={`animate-fade-in-down flex ${className}`}>
       <div className="flex gap-2 w-full">
         <div className="pt-1">
           <Check
-            action={() => toggleTaskCompletion(task.id)}
+            action={() => toggleTaskCompletion(listId, task.id)}
             isChecked={task.isChecked}
           />
         </div>
         <div className="flex flex-col gap-1 w-full cursor-pointer">
-          <p>{task.description}</p>
+          <p
+            className={`${
+              task.isChecked ? "line-through text-baseColor" : ""
+            } transition-all`}
+          >
+            {task.description}
+          </p>
           <span className="text-xs text-baseColor">
             {formatDate(task.createdAt)}
           </span>
         </div>
       </div>
 
-      <div className="pt-1 flex items-center gap-2">
+      <div className="pt-1 flex items-start gap-2">
         <ImportantCheck
-          action={() => toggleTaskImportance(task.id)}
+          action={() => toggleTaskImportance(listId, task.id)}
           isChecked={task.isImportant}
         />
-        <button>
-            <CiMenuKebab />
-        </button>
       </div>
     </li>
   );

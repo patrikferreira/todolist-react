@@ -1,8 +1,10 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../AppContext";
 import { useNavigate } from "react-router-dom";
-import Separator from "./Separator";
 import { FcGoogle } from "react-icons/fc";
+import Button from "./Button";
+import Logo from "./Logo";
+import Anchor from "./Anchor";
 
 type FormData = {
   username: string;
@@ -27,9 +29,7 @@ export default function SignIn() {
     <div
       className={`loginBackground flex flex-col justify-between items-center p-4 min-h-screen w-full animate-fade-in-left bg-lightColor`}
     >
-      {/* logo */}
-      <h1 className="text-3xl font-semibold">Logo</h1>
-      {/* login container */}
+      <Logo className="text-3xl" />
       <div className="flex flex-col gap-6 rounded-xl justify-center">
         <h1 className="text-4xl font-semibold">Sign in</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-80">
@@ -53,13 +53,11 @@ export default function SignIn() {
             />
           </div>
 
-          <button className="bg-firstColor text-sm p-2 mt-4 text-lightColor rounded-xl transition-all duration-300">
-            Sign in
-          </button>
+          <Button title="Sign in" className="rounded-xl" />
 
           <div className="flex justify-between items-center px-2">
-            <a href="/" className="text-sm">Lost your password?</a>
-            <a href="/" className="text-sm">Sign up</a>
+            <Anchor title="Lost your password?" route="/" className="hover:text-accent" />
+            <Anchor title="Sign up" route="/" className="hover:text-accent" />
           </div>
         </form>
         <button className="flex items-center justify-center gap-2 rounded-xl border py-2 cursor-pointer bg-lightColor transition-all duration-300 hover:brightness-95">
@@ -71,8 +69,8 @@ export default function SignIn() {
 
       <div className="text-sm flex flex-col items-center gap-2">
         <span>
-          © 2024 Todo List - Powered by <a href="">Patrik Ferreira</a> and{" "}
-          <a href="">Mario Zeller</a>
+          © 2024 Todo List - Powered by <Anchor title="Patrik Ferreira" route="/" className="" /> and{" "}
+          <Anchor title="Mario Zeller" route="/" className="" />
         </span>
       </div>
     </div>

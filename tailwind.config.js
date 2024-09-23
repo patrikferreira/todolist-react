@@ -7,19 +7,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        'firstColor': '#010101',
-        'secondColor': '#f0f0f0',
+        'firstColor': '#f5f5f5',
+        'secondColor': '#515151',
+        'accent': '#dc4c3e',
         'lightColor': '#ffffff',
-        'baseColor': '#919191',
-        'accentColor': '#ffc107',
         'hoverColor': '#f2f2f2',
+        'focusColor': '#f8cac5'
       },
       boxShadow: {
-        'customShadow': '0px 0px 1px 1px rgba(0,0,0,0.1)'
+        'customShadow': '0px 0px 2px 0px rgba(0,0,0,0.3)',
       },
       animation: {
-        'fade-in-left': 'fadeInLeft 0.3s ease-out forwards',
-        'fade-in-down': 'fadeInDown 0.3s ease-out forwards', // Nova animação
+        'fade-in-left': 'fadeInLeft 0.2s ease-out forwards',
+        'fade-in-down': 'fadeInDown 0.2s ease-out forwards',
       },
       keyframes: {
         fadeInLeft: {
@@ -32,14 +32,14 @@ export default {
             transform: 'translateX(0)',
           },
         },
-        fadeInDown: { // Nova keyframe
+        fadeInDown: {
           '0%': {
             opacity: '0',
-            transform: 'translateY(-20px)', // Inicia de cima
+            transform: 'translateY(-20px)',
           },
           '100%': {
             opacity: '1',
-            transform: 'translateY(0)', // Termina na posição original
+            transform: 'translateY(0)',
           },
         },
       },

@@ -1,13 +1,24 @@
 import { createContext, useState, ReactNode } from "react";
-import { Task } from "./Types";
+import { Task, TaskList } from "./Types";
+
+const initialTaskLists: TaskList[] = [
+  {
+    id: "myday",
+    title: "My Day",
+    tasks: [],
+  },
+];
 
 type AppContextType = {
-  tasks: Task[];
-  addTask: (task: Task) => void;
-  updateTask: (updatedTask: Task) => void;
-  deleteTask: (taskId: number) => void;
-  toggleTaskImportance: (taskId: number) => void;
-  toggleTaskCompletion: (taskId: number) => void;
+  taskLists: TaskList[];
+  addTaskList: (newList: TaskList) => void;
+  deleteTaskList: (listId: string) => void;
+  editTaskList: (listId: string, newTitle: string) => void;
+  addTask: (listId: string, task: Task) => void;
+  updateTask: (listId: string, updatedTask: Task) => void;
+  deleteTask: (listId: string, taskId: number) => void;
+  toggleTaskImportance: (listId: string, taskId: number) => void;
+  toggleTaskCompletion: (listId: string, taskId: number) => void;
   isSidebarOpen: boolean;
   openSidebar: () => void;
   closeSidebar: () => void;
@@ -20,38 +31,97 @@ type AppProviderProps = {
 };
 
 export function AppProvider({ children }: AppProviderProps) {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [taskLists, setTaskLists] = useState<TaskList[]>(initialTaskLists);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
   const openSidebar = () => setIsSidebarOpen(true);
   const closeSidebar = () => setIsSidebarOpen(false);
 
-  const addTask = (newTask: Task) => {
-    setTasks((prevTasks) => [...prevTasks, newTask]);
+  const addTaskList = (newList: TaskList) => {
+    const exists = taskLists.some((list) => list.id === newList.id);
+    if (!exists) {
+      setTaskLists((prevLists) => [...prevLists, newList]);
+    }
   };
 
-  const updateTask = (updatedTask: Task) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
-    );
+  const deleteTaskList = (listId: string) => {
+    setTaskLists((prevLists) => prevLists.filter((list) => list.id !== listId));
   };
 
-  const deleteTask = (taskId: number) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
-  };
-
-  const toggleTaskImportance = (taskId: number) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId ? { ...task, isImportant: !task.isImportant } : task
+  const editTaskList = (listId: string, newTitle: string) => {
+    setTaskLists((prevLists) =>
+      prevLists.map((list) =>
+        list.id === listId ? { ...list, title: newTitle } : list
       )
     );
   };
 
-  const toggleTaskCompletion = (taskId: number) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId ? { ...task, isChecked: !task.isChecked } : task
+  const addTask = (listId: string, newTask: Task) => {
+    setTaskLists((prevLists) =>
+      prevLists.map((list) =>
+        list.id === listId ? { ...list, tasks: [...list.tasks, newTask] } : list
+      )
+    );
+  };
+
+  const updateTask = (listId: string, updatedTask: Task) => {
+    setTaskLists((prevLists) =>
+      prevLists.map((list) =>
+        list.id === listId
+          ? {
+              ...list,
+              tasks: list.tasks.map((task: Task) =>
+                task.id === updatedTask.id ? updatedTask : task
+              ),
+            }
+          : list
+      )
+    );
+  };
+
+  const deleteTask = (listId: string, taskId: number) => {
+    setTaskLists((prevLists) =>
+      prevLists.map((list) =>
+        list.id === listId
+          ? {
+              ...list,
+              tasks: list.tasks.filter((task: Task) => task.id !== taskId),
+            }
+          : list
+      )
+    );
+  };
+
+  const toggleTaskImportance = (listId: string, taskId: number) => {
+    setTaskLists((prevLists) =>
+      prevLists.map((list) =>
+        list.id === listId
+          ? {
+              ...list,
+              tasks: list.tasks.map((task: Task) =>
+                task.id === taskId
+                  ? { ...task, isImportant: !task.isImportant }
+                  : task
+              ),
+            }
+          : list
+      )
+    );
+  };
+
+  const toggleTaskCompletion = (listId: string, taskId: number) => {
+    setTaskLists((prevLists) =>
+      prevLists.map((list) =>
+        list.id === listId
+          ? {
+              ...list,
+              tasks: list.tasks.map((task: Task) =>
+                task.id === taskId
+                  ? { ...task, isChecked: !task.isChecked }
+                  : task
+              ),
+            }
+          : list
       )
     );
   };
@@ -59,7 +129,10 @@ export function AppProvider({ children }: AppProviderProps) {
   return (
     <AppContext.Provider
       value={{
-        tasks,
+        taskLists,
+        addTaskList,
+        deleteTaskList,
+        editTaskList,
         addTask,
         updateTask,
         deleteTask,
