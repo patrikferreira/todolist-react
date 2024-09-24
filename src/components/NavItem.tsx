@@ -14,7 +14,7 @@ interface Props {
   count: number;
   onClick: () => void;
   onDelete?: () => void;
-  onEdit?: () => void; // Modificado para não receber parâmetros
+  onEdit?: () => void;
   hasSubMenu: boolean;
 }
 
@@ -27,7 +27,7 @@ export default function NavItem({
   count,
   onClick,
   onDelete,
-  onEdit, // Nova prop para edição
+  onEdit,
   hasSubMenu,
 }: Props) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -74,11 +74,11 @@ export default function NavItem({
             className="absolute right-0 top-full"
           >
             <div className="flex flex-col p-1">
-              {onEdit && ( // Mostra o botão de editar se onEdit estiver definido
+              {onEdit && (
                 <button
                   onClick={() => {
                     if (onEdit) {
-                      onEdit(); // Chama a função de edição
+                      onEdit();
                     }
                     togglePopover();
                   }}
@@ -88,7 +88,7 @@ export default function NavItem({
                   Edit
                 </button>
               )}
-              {onDelete && ( // Mostra o botão de deletar se onDelete estiver definido
+              {onDelete && (
                 <button
                   onClick={() => {
                     onDelete();

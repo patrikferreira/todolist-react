@@ -10,7 +10,7 @@ type ModalProps = {
 export default function Modal({ onClose, title, children }: ModalProps) {
   return (
     <div
-      className="fixed top-0 left-0 min-h-screen w-screen bg-black bg-opacity-50 flex items-center justify-center"
+      className="fixed top-0 left-0 min-h-screen w-screen bg-black bg-opacity-50 flex items-center justify-center z-50"
       onClick={onClose}
     >
       <div

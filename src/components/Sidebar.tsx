@@ -5,13 +5,13 @@ import { IoAdd } from "react-icons/io5";
 import { AppContext } from "../AppContext";
 import Logo from "./Logo";
 import SmallButton from "./SmallButton";
-import NoData from "./NoData";
 import Modal from "./Modal";
 import Popover from "./Popover";
 import NavItem from "./NavItem";
 import User from "./User";
 import { GoSun } from "react-icons/go";
 import { IoIosStarOutline } from "react-icons/io";
+import UnderConstruction from "./UnderConstruction";
 
 export default function Sidebar() {
   const ctx = useContext(AppContext);
@@ -86,11 +86,8 @@ export default function Sidebar() {
                 action={() => setNotificationsActive(!notificationsActive)}
               />
               {notificationsActive && (
-                <Popover onClose={() => setNotificationsActive(false)}>
-                  <NoData
-                    text="No notifications available"
-                    className="text-sm text-baseColor"
-                  />
+                <Popover onClose={() => setNotificationsActive(false)} className="absolute right-0 md:left-0 p-4">
+                  <UnderConstruction />
                 </Popover>
               )}
             </div>
