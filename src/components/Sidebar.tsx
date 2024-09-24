@@ -13,6 +13,8 @@ import { GoSun } from "react-icons/go";
 import { IoIosStarOutline } from "react-icons/io";
 import UnderConstruction from "./UnderConstruction";
 import NavDefault from "./NavDefault";
+import { MAX_PROJECT_NAME_LENGTH } from "../Types";
+import ToastManager from "./ToastManager";
 
 export default function Sidebar() {
   const ctx = useContext(AppContext);
@@ -35,6 +37,7 @@ export default function Sidebar() {
     taskLists,
     deleteTaskList,
     editTaskList,
+    errorMessage,
   } = ctx;
 
   function countTasksByCategory(category: string) {
@@ -126,6 +129,7 @@ export default function Sidebar() {
                       type="text"
                       id="project-name"
                       placeholder="Project"
+                      maxLength={MAX_PROJECT_NAME_LENGTH}
                       className="p-2 outline-none border rounded-lg text-sm"
                       value={newProjectName}
                       onChange={(e) => setNewProjectName(e.target.value)}
@@ -136,19 +140,30 @@ export default function Sidebar() {
                       }}
                     />
                   </div>
-                  <div className="flex items-center justify-end gap-2">
-                    <button
-                      className="bg-focusColor text-white px-4 py-2 rounded-lg mt-2 text-sm transition-all duration-300 hover:brightness-75"
-                      onClick={() => setProjectsActive(false)}
+                  <div className="flex items-center justify-between gap-2">
+                    <div
+                      className={`text-sm ${
+                        newProjectName.length >= MAX_PROJECT_NAME_LENGTH
+                          ? "text-accent"
+                          : ""
+                      }`}
                     >
-                      Cancel
-                    </button>
-                    <button
-                      className="bg-accent text-white px-4 py-2 rounded-lg mt-2 text-sm transition-all duration-300 hover:brightness-75"
-                      onClick={handleAddProject}
-                    >
-                      Save
-                    </button>
+                      {newProjectName.length}/{MAX_PROJECT_NAME_LENGTH}
+                    </div>
+                    <div className="flex gap-2 items-center">
+                      <button
+                        className="bg-focusColor text-white px-4 py-2 rounded-lg mt-2 text-sm transition-all duration-300 hover:brightness-75"
+                        onClick={() => setProjectsActive(false)}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="bg-accent text-white px-4 py-2 rounded-lg mt-2 text-sm transition-all duration-300 hover:brightness-75"
+                        onClick={handleAddProject} // Chama a função ao clicar em Salvar
+                      >
+                        Save
+                      </button>
+                    </div>
                   </div>
                 </div>
               </Modal>
@@ -227,6 +242,7 @@ export default function Sidebar() {
           </div>
         </Modal>
       )}
+      <ToastManager message={errorMessage} />
     </>
   );
 }

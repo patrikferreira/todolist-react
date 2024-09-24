@@ -6,7 +6,7 @@ import { IoCloseOutline, IoSearchOutline } from "react-icons/io5";
 import SmallButton from "./SmallButton";
 
 type Props = {
-  title: string;
+  title?: string;
 };
 
 export default function Header({ title }: Props) {

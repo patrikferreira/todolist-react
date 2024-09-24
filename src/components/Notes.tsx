@@ -1,7 +1,15 @@
+import Header from "./Header";
+import UnderConstruction from "./UnderConstruction";
+
 export default function Notes() {
-    return (
-        <div className={`animate-fade-in-left h-screen w-full flex items-center justify-center`}>
-            <span className="text-sm">Construction ...</span>
-        </div>
-    )
+  return (
+    <div
+      className={`flex flex-col gap-2 w-full animate-fade-in-left transition-all duration-300 p-4`}
+    >
+      <Header />
+      <div className="h-full w-full flex items-center justify-center">
+        <UnderConstruction />
+      </div>
+    </div>
+  );
 }

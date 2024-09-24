@@ -1,5 +1,5 @@
 import { createContext, useState, ReactNode } from "react";
-import { Task, TaskList } from "./Types";
+import { Task, TaskList, MAX_PROJECT_NAME_LENGTH, MAX_PROJECTS } from "./Types";
 
 const initialTaskLists: TaskList[] = [
   {
@@ -22,6 +22,8 @@ type AppContextType = {
   isSidebarOpen: boolean;
   openSidebar: () => void;
   closeSidebar: () => void;
+  errorMessage: string;
+  setErrorMessage: (message: string) => void;
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -33,15 +35,31 @@ type AppProviderProps = {
 export function AppProvider({ children }: AppProviderProps) {
   const [taskLists, setTaskLists] = useState<TaskList[]>(initialTaskLists);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const openSidebar = () => setIsSidebarOpen(true);
   const closeSidebar = () => setIsSidebarOpen(false);
 
   const addTaskList = (newList: TaskList) => {
     const exists = taskLists.some((list) => list.id === newList.id);
-    if (!exists) {
-      setTaskLists((prevLists) => [...prevLists, newList]);
+    const isLimitReached = taskLists.length >= MAX_PROJECTS;
+
+    if (!newList.title.trim()) {
+      setErrorMessage("Project name cannot be empty.");
+      return;
     }
+
+    if (exists) {
+      setErrorMessage("A project with this name already exists.");
+      return;
+    }
+
+    if (isLimitReached) {
+      setErrorMessage(`You can only create up to ${MAX_PROJECTS - 1} projects.`);
+      return;
+    }
+
+    setTaskLists((prevLists) => [...prevLists, newList]);
   };
 
   const deleteTaskList = (listId: string) => {
@@ -141,6 +159,8 @@ export function AppProvider({ children }: AppProviderProps) {
         isSidebarOpen,
         openSidebar,
         closeSidebar,
+        errorMessage,
+        setErrorMessage,
       }}
     >
       {children}

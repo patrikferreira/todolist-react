@@ -11,3 +11,7 @@ export type TaskList = {
     title: string;
     tasks: Task[];
 };
+
+export const MAX_PROJECT_NAME_LENGTH = 25;
+
+export const MAX_PROJECTS = 6;
