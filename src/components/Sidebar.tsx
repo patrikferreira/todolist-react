@@ -12,11 +12,13 @@ import User from "./User";
 import { GoSun } from "react-icons/go";
 import { IoIosStarOutline } from "react-icons/io";
 import UnderConstruction from "./UnderConstruction";
+import NavDefault from "./NavDefault";
 
 export default function Sidebar() {
   const ctx = useContext(AppContext);
   const [selectedRoute, setSelectedRoute] = useState<string>("myday");
-  const [notificationsActive, setNotificationsActive] = useState<boolean>(false);
+  const [notificationsActive, setNotificationsActive] =
+    useState<boolean>(false);
   const [projectsActive, setProjectsActive] = useState<boolean>(false);
   const [newProjectName, setNewProjectName] = useState<string>("");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -86,33 +88,22 @@ export default function Sidebar() {
                 action={() => setNotificationsActive(!notificationsActive)}
               />
               {notificationsActive && (
-                <Popover onClose={() => setNotificationsActive(false)} className="absolute right-0 md:left-0 p-4">
+                <Popover
+                  onClose={() => setNotificationsActive(false)}
+                  className="absolute right-0 md:left-0 p-4"
+                >
                   <UnderConstruction />
                 </Popover>
               )}
             </div>
           </div>
 
-          <div>
-            <ul className="flex flex-col">
-              {menuItems.map((item) => (
-                <NavItem
-                  key={item.id}
-                  id={item.id}
-                  path={item.path}
-                  icon={item.icon}
-                  label={item.label}
-                  isSelected={selectedRoute === item.id}
-                  count={countTasksByCategory(item.id)}
-                  hasSubMenu={false}
-                  onClick={() => {
-                    setSelectedRoute(item.id);
-                    closeSidebar();
-                  }}
-                />
-              ))}
-            </ul>
-          </div>
+          <NavDefault
+            selectedRoute={selectedRoute}
+            countTasksByCategory={countTasksByCategory}
+            setSelectedRoute={setSelectedRoute}
+            closeSidebar={closeSidebar}
+          />
 
           <div className="flex flex-col gap-2">
             <div className="flex justify-between items-center">
@@ -201,10 +192,7 @@ export default function Sidebar() {
       )}
 
       {isEditModalOpen && (
-        <Modal
-          onClose={() => setIsEditModalOpen(false)}
-          title="Edit Project"
-        >
+        <Modal onClose={() => setIsEditModalOpen(false)} title="Edit Project">
           <div className="flex flex-col gap-2">
             <div className="flex flex-col gap-1 text-sm">
               <label htmlFor="edit-project-name">Name</label>
@@ -242,24 +230,3 @@ export default function Sidebar() {
     </>
   );
 }
-
-const menuItems = [
-  {
-    id: "myday",
-    label: "My Day",
-    icon: <GoSun className="text-lg" />,
-    path: "/myday",
-  },
-  {
-    id: "important",
-    label: "Important",
-    icon: <IoIosStarOutline className="text-lg" />,
-    path: "/important",
-  },
-  {
-    id: "notes",
-    label: "Notes",
-    icon: <CiStickyNote className="text-lg" />,
-    path: "/notes",
-  },
-];
