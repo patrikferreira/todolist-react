@@ -1,5 +1,5 @@
 import { createContext, useState, ReactNode } from "react";
-import { Task, TaskList, MAX_PROJECT_NAME_LENGTH, MAX_PROJECTS } from "./Types";
+import { Task, TaskList, MAX_PROJECTS } from "./Types";
 
 const initialTaskLists: TaskList[] = [
   {
@@ -24,6 +24,8 @@ type AppContextType = {
   closeSidebar: () => void;
   errorMessage: string;
   setErrorMessage: (message: string) => void;
+  sortBy: string;
+  setSortBy: (sortBy: string) => void;
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -36,6 +38,7 @@ export function AppProvider({ children }: AppProviderProps) {
   const [taskLists, setTaskLists] = useState<TaskList[]>(initialTaskLists);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [sortBy, setSortBy] = useState<string>("latest");
 
   const openSidebar = () => setIsSidebarOpen(true);
   const closeSidebar = () => setIsSidebarOpen(false);
@@ -76,9 +79,16 @@ export function AppProvider({ children }: AppProviderProps) {
 
   const addTask = (listId: string, newTask: Task) => {
     setTaskLists((prevLists) =>
-      prevLists.map((list) =>
-        list.id === listId ? { ...list, tasks: [...list.tasks, newTask] } : list
-      )
+      prevLists.map((list) => {
+        if (list.id === listId) {
+          if (list.tasks.length >= 10) {
+            setErrorMessage("Task limit reached. You cannot add more than 10 tasks.");
+            return list;
+          }
+          return { ...list, tasks: [...list.tasks, newTask] };
+        }
+        return list;
+      })
     );
   };
 
@@ -112,18 +122,17 @@ export function AppProvider({ children }: AppProviderProps) {
 
   const toggleTaskImportance = (listId: string, taskId: number) => {
     setTaskLists((prevLists) =>
-      prevLists.map((list) =>
-        list.id === listId
-          ? {
-              ...list,
-              tasks: list.tasks.map((task: Task) =>
-                task.id === taskId
-                  ? { ...task, isImportant: !task.isImportant }
-                  : task
-              ),
-            }
-          : list
-      )
+      prevLists.map((list) => {
+        if (list.id === listId) {
+          return {
+            ...list,
+            tasks: list.tasks.map((task: Task) =>
+              task.id === taskId ? { ...task, isImportant: !task.isImportant } : task
+            ),
+          };
+        }
+        return list;
+      })
     );
   };
 
@@ -161,6 +170,8 @@ export function AppProvider({ children }: AppProviderProps) {
         closeSidebar,
         errorMessage,
         setErrorMessage,
+        sortBy,
+        setSortBy,
       }}
     >
       {children}

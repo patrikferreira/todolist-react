@@ -22,7 +22,7 @@ export default function MyDay() {
   };
 
   return (
-    <div className={`flex flex-col gap-2 w-full animate-fade-in-left transition-all duration-300 p-4`}>
+    <div className={`flex flex-col gap-4 w-full animate-fade-in-left transition-all duration-300 p-4`}>
       <Header title="My Day" />
       <TaskListPage
         title="My Day"

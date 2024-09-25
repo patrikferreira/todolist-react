@@ -29,7 +29,7 @@ export default function TaskItem({ task, listId, className }: Props) {
   }
 
   return (
-    <li className={`animate-fade-in-down flex ${className}`}>
+    <li className={`animate-fade-in-left flex ${className}`}>
       <div className="flex gap-2 w-full">
         <div className="pt-1">
           <Check
@@ -40,12 +40,12 @@ export default function TaskItem({ task, listId, className }: Props) {
         <div className="flex flex-col gap-1 w-full cursor-pointer">
           <p
             className={`${
-              task.isChecked ? "line-through text-baseColor" : ""
+              task.isChecked ? "line-through text-secondColor" : ""
             } transition-all`}
           >
             {task.description}
           </p>
-          <span className="text-xs text-baseColor">
+          <span className="text-xs text-secondColor">
             {formatDate(task.createdAt)}
           </span>
         </div>

@@ -15,7 +15,7 @@ type Props = {
 };
 
 export default function User({ name }: Props) {
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
   const [modalTitle, setModalTitle] = useState<string | null>(null);
   const navigate = useNavigate();
 

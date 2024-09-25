@@ -15,7 +15,7 @@ export default function Important() {
   const importantTasks = myDayList ? myDayList.tasks.filter(task => task.isImportant) : [];
 
   return (
-    <div className={`flex flex-col gap-2 w-full animate-fade-in-left transition-all duration-300 p-4`}>
+    <div className={`flex flex-col gap-4 w-full animate-fade-in-left transition-all duration-300 p-4`}>
       <Header title="Important" />
       <TaskListPage
         title="Important Tasks"
