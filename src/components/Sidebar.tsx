@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { CiHashtag, CiStickyNote } from "react-icons/ci";
+import { CiHashtag } from "react-icons/ci";
 import { HiOutlineBellAlert } from "react-icons/hi2";
 import { IoAdd } from "react-icons/io5";
 import { AppContext } from "../AppContext";
@@ -9,8 +9,6 @@ import Modal from "./Modal";
 import Popover from "./Popover";
 import NavItem from "./NavItem";
 import User from "./User";
-import { GoSun } from "react-icons/go";
-import { IoIosStarOutline } from "react-icons/io";
 import UnderConstruction from "./UnderConstruction";
 import NavDefault from "./NavDefault";
 import { MAX_PROJECT_NAME_LENGTH } from "../Types";
@@ -93,7 +91,7 @@ export default function Sidebar() {
               {notificationsActive && (
                 <Popover
                   onClose={() => setNotificationsActive(false)}
-                  className="absolute right-0 md:left-0 p-4"
+                  className="absolute right-0 md:left-0"
                 >
                   <UnderConstruction />
                 </Popover>
@@ -159,7 +157,7 @@ export default function Sidebar() {
                       </button>
                       <button
                         className="bg-accent text-white px-4 py-2 rounded-lg mt-2 text-sm transition-all duration-300 hover:brightness-75"
-                        onClick={handleAddProject} // Chama a função ao clicar em Salvar
+                        onClick={handleAddProject}
                       >
                         Save
                       </button>
@@ -215,6 +213,7 @@ export default function Sidebar() {
                 type="text"
                 id="edit-project-name"
                 placeholder="Project"
+                maxLength={MAX_PROJECT_NAME_LENGTH}
                 className="p-2 outline-none border rounded-lg text-sm"
                 value={newTitle}
                 onChange={(e) => setNewTitle(e.target.value)}
@@ -225,23 +224,35 @@ export default function Sidebar() {
                 }}
               />
             </div>
-            <div className="flex items-center justify-end gap-2">
-              <button
-                className="bg-focusColor text-white px-4 py-2 rounded-lg mt-2 text-sm transition-all duration-300 hover:brightness-75"
-                onClick={() => setIsEditModalOpen(false)}
+            <div className="flex items-center justify-between gap-2">
+              <div
+                className={`text-sm ${
+                  newTitle.length >= MAX_PROJECT_NAME_LENGTH
+                    ? "text-accent"
+                    : ""
+                }`}
               >
-                Cancel
-              </button>
-              <button
-                className="bg-accent text-white px-4 py-2 rounded-lg mt-2 text-sm transition-all duration-300 hover:brightness-75"
-                onClick={saveEdit}
-              >
-                Save
-              </button>
+                {newTitle.length}/{MAX_PROJECT_NAME_LENGTH}
+              </div>
+              <div className="flex gap-2 items-center">
+                <button
+                  className="bg-focusColor text-white px-4 py-2 rounded-lg mt-2 text-sm transition-all duration-300 hover:brightness-75"
+                  onClick={() => setIsEditModalOpen(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="bg-accent text-white px-4 py-2 rounded-lg mt-2 text-sm transition-all duration-300 hover:brightness-75"
+                  onClick={saveEdit}
+                >
+                  Save
+                </button>
+              </div>
             </div>
           </div>
         </Modal>
       )}
+
       <ToastManager message={errorMessage} />
     </>
   );

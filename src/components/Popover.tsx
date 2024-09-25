@@ -26,7 +26,7 @@ export default function Popover({ children, onClose, className }: Props) {
   return (
     <div
       ref={popoverRef}
-      className={`absolute z-50 min-w-fit min-h-fit bg-lightColor shadow-customShadow rounded-lg text-sm text-secondColor ${className}`}
+      className={`absolute z-50 min-w-fit min-h-fit bg-lightColor shadow-customShadow rounded-lg text-sm text-secondColor p-2 ${className}`}
     >
       {children}
     </div>

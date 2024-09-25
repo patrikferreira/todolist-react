@@ -2,11 +2,13 @@ import { useState } from "react";
 import { PiUserLight } from "react-icons/pi";
 import SmallButton from "./SmallButton";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import Popover from "./Popover"; // Componente Popover já existente
+import Popover from "./Popover";
 import { IoIosLogOut, IoIosStarOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { FaStar } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
+import Modal from "./Modal";
+import UnderConstruction from "./UnderConstruction";
+import Plan from "./Plan";
 
 type Props = {
   name: string;
@@ -14,6 +16,7 @@ type Props = {
 
 export default function User({ name }: Props) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState<string | null>(null);
   const navigate = useNavigate();
 
   function togglePopover() {
@@ -23,6 +26,16 @@ export default function User({ name }: Props) {
   function handleLogout() {
     navigate("/");
   }
+
+  function openModal(title: string) {
+    setModalTitle(title);
+    setIsPopoverOpen(false);
+  }
+
+  function closeModal() {
+    setModalTitle(null);
+  }
+  
 
   return (
     <div className="relative flex items-center justify-between">
@@ -39,29 +52,34 @@ export default function User({ name }: Props) {
         {isPopoverOpen && (
           <Popover
             onClose={togglePopover}
-            className="absolute right-0 bottom-full bg-white shadow-lg rounded-lg w-60"
+            className="absolute right-0 bottom-full rounded-lg w-60"
           >
             <div className="flex flex-col min-w-max">
-              <div className="border-b p-1 w-full flex">
-                <button className="flex items-center w-full rounded-lg gap-2 p-2 transition-all duration-300 hover:bg-hoverColor">
-                <PiUserLight />
-                <p className="text-sm">{name}</p>
+  
+                <button
+                  onClick={() => openModal(name)}
+                  className="flex items-center w-full rounded-lg gap-2 p-2 transition-all duration-300 hover:bg-hoverColor"
+                >
+                  <PiUserLight />
+                  <p className="text-sm">{name}</p>
                 </button>
-              </div>
-              <div className="w-full flex flex-col p-1">
-                <button className="flex items-center justify-between rounded-lg gap-2 p-2 transition-all duration-300 hover:bg-hoverColor">
+                <button
+                  onClick={() => openModal("Upgrade")}
+                  className="flex items-center justify-between rounded-lg gap-2 p-2 transition-all duration-300 hover:bg-hoverColor"
+                >
                   <div className="flex gap-2 items-center">
-                  <IoIosStarOutline className="text-yellow-300" />
-                  Upgrade
+                    <IoIosStarOutline className="text-yellow-300" />
+                    Upgrade
                   </div>
-                  <span className="text-xs p-1 bg-focusColor rounded-lg italic">Basic</span>
+                  <Plan plan="Basic" />
                 </button>
-                <button className="flex items-center rounded-lg gap-2 p-2 transition-all duration-300 hover:bg-hoverColor">
+                <button
+                  onClick={() => openModal("Settings")}
+                  className="flex items-center rounded-lg gap-2 p-2 transition-all duration-300 hover:bg-hoverColor"
+                >
                   <IoSettingsOutline />
                   Settings
                 </button>
-              </div>
-              <div className="border-t p-1 w-full flex">
                 <button
                   onClick={() => {
                     handleLogout();
@@ -72,9 +90,14 @@ export default function User({ name }: Props) {
                   <IoIosLogOut />
                   Logout
                 </button>
-                </div>
-            </div>
+              </div>
           </Popover>
+        )}
+
+        {modalTitle && (
+          <Modal title={modalTitle} onClose={closeModal}>
+            <UnderConstruction />
+          </Modal>
         )}
       </div>
     </div>

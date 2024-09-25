@@ -73,7 +73,7 @@ export default function NavItem({
             onClose={togglePopover}
             className="absolute right-0 top-full"
           >
-            <div className="flex flex-col p-1">
+            <div className="flex flex-col">
               {onEdit && (
                 <button
                   onClick={() => {

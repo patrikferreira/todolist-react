@@ -23,8 +23,8 @@ export default function AppContent() {
           <Route path="important" element={<Important />} />
           <Route path="notes" element={<Notes />} />
           {ctx?.taskLists
-            .filter(list => list.id !== "myday")
-            .map(list => (
+            .filter((list) => list.id !== "myday")
+            .map((list) => (
               <Route
                 key={list.id}
                 path={list.id}

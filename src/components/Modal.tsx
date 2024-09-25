@@ -18,8 +18,8 @@ export default function Modal({ onClose, title, children }: ModalProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="min-h-fit w-72 md:w-96 rounded-lg flex flex-col overflow-hidden">
-          <div className="flex justify-between items-center border-b p-2">
-            <p className="text-sm font-semibold px-2">{title}</p>
+          <div className="flex justify-between items-center p-2 border-b">
+            <p className="text-sm px-2 font-semibold">{title}</p>
             <SmallButton icon={<IoCloseOutline />} action={onClose} />
           </div>
           <div className="h-full w-full p-4">
