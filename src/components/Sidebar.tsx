@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CiHashtag } from "react-icons/ci";
 import { HiOutlineBellAlert } from "react-icons/hi2";
 import { IoAdd } from "react-icons/io5";
@@ -14,17 +14,17 @@ import NavDefault from "./NavDefault";
 import { MAX_PROJECT_NAME_LENGTH } from "../Types";
 import ToastManager from "./ToastManager";
 import { VscLayoutSidebarLeftOff } from "react-icons/vsc";
+import { useLocation } from "react-router-dom";
 
 export default function Sidebar() {
   const ctx = useContext(AppContext);
-  const [selectedRoute, setSelectedRoute] = useState<string>("myday");
-  const [notificationsActive, setNotificationsActive] =
-    useState<boolean>(false);
+  const [notificationsActive, setNotificationsActive] = useState<boolean>(false);
   const [projectsActive, setProjectsActive] = useState<boolean>(false);
   const [newProjectName, setNewProjectName] = useState<string>("");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentEditListId, setCurrentEditListId] = useState<string>("");
   const [newTitle, setNewTitle] = useState<string>("");
+  const location = useLocation();
 
   if (!ctx) {
     throw new Error("AppContext must be used within an AppProvider");
@@ -77,7 +77,7 @@ export default function Sidebar() {
   return (
     <>
       <nav
-        className={`fixed md:relative min-h-full left-0 min-w-72 flex flex-col justify-between p-4 transition-all duration-300 z-30 bg-firstColor text-secondColor ${
+        className={`fixed md:relative min-h-full left-0 min-w-72 flex-shrink-0 flex flex-col justify-between p-4 transition-all duration-300 z-30 bg-firstColor text-secondColor ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         }`}
       >
@@ -97,14 +97,17 @@ export default function Sidebar() {
                   <UnderConstruction />
                 </Popover>
               )}
-              <SmallButton icon={<VscLayoutSidebarLeftOff />} action={closeSidebar} className="md:hidden" />
+              <SmallButton
+                icon={<VscLayoutSidebarLeftOff />}
+                action={closeSidebar}
+                className="md:hidden"
+              />
             </div>
           </div>
 
           <NavDefault
-            selectedRoute={selectedRoute}
+            selectedRoute={location.pathname}
             countTasksByCategory={countTasksByCategory}
-            setSelectedRoute={setSelectedRoute}
             closeSidebar={closeSidebar}
           />
 
@@ -182,11 +185,10 @@ export default function Sidebar() {
                       label={list.title}
                       onDelete={() => deleteTaskList(list.id)}
                       onEdit={() => handleEditList(list.id, list.title)}
-                      isSelected={selectedRoute === list.id}
+                      isSelected={location.pathname === `/${list.id}`}
                       count={countTasksByCategory(list.id)}
                       hasSubMenu={true}
                       onClick={() => {
-                        setSelectedRoute(list.id);
                         closeSidebar();
                       }}
                     />

@@ -40,118 +40,93 @@ export function AppProvider({ children }: AppProviderProps) {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [sortBy, setSortBy] = useState<string>("latest");
 
-  const openSidebar = () => setIsSidebarOpen(true);
-  const closeSidebar = () => setIsSidebarOpen(false);
+  function openSidebar() {
+    setIsSidebarOpen(true);
+  }
 
-  const addTaskList = (newList: TaskList) => {
-    const exists = taskLists.some((list) => list.id === newList.id);
-    const isLimitReached = taskLists.length >= MAX_PROJECTS;
+  function closeSidebar() {
+    setIsSidebarOpen(false);
+  }
 
-    if (!newList.title.trim()) {
-      setErrorMessage("Project name cannot be empty.");
-      return;
+  function addTaskList(newList: TaskList) {
+    if (taskLists.length < MAX_PROJECTS) {
+      setTaskLists((prev) => [...prev, newList]);
+    } else {
+      setErrorMessage("Maximum number of projects reached.");
     }
+  }
 
-    if (exists) {
-      setErrorMessage("A project with this name already exists.");
-      return;
-    }
+  function deleteTaskList(listId: string) {
+    setTaskLists((prev) => prev.filter((list) => list.id !== listId));
+  }
 
-    if (isLimitReached) {
-      setErrorMessage(`You can only create up to ${MAX_PROJECTS - 1} projects.`);
-      return;
-    }
-
-    setTaskLists((prevLists) => [...prevLists, newList]);
-  };
-
-  const deleteTaskList = (listId: string) => {
-    setTaskLists((prevLists) => prevLists.filter((list) => list.id !== listId));
-  };
-
-  const editTaskList = (listId: string, newTitle: string) => {
-    setTaskLists((prevLists) =>
-      prevLists.map((list) =>
+  function editTaskList(listId: string, newTitle: string) {
+    setTaskLists((prev) =>
+      prev.map((list) =>
         list.id === listId ? { ...list, title: newTitle } : list
       )
     );
-  };
+  }
 
-  const addTask = (listId: string, newTask: Task) => {
-    setTaskLists((prevLists) =>
-      prevLists.map((list) => {
-        if (list.id === listId) {
-          if (list.tasks.length >= 10) {
-            setErrorMessage("Task limit reached. You cannot add more than 10 tasks.");
-            return list;
-          }
-          return { ...list, tasks: [...list.tasks, newTask] };
-        }
-        return list;
-      })
+  function addTask(listId: string, newTask: Task) {
+    setTaskLists((prev) =>
+      prev.map((list) =>
+        list.id === listId ? { ...list, tasks: [...list.tasks, newTask] } : list
+      )
     );
-  };
+  }
 
-  const updateTask = (listId: string, updatedTask: Task) => {
-    setTaskLists((prevLists) =>
-      prevLists.map((list) =>
+  function updateTask(listId: string, updatedTask: Task) {
+    setTaskLists((prev) =>
+      prev.map((list) =>
         list.id === listId
           ? {
               ...list,
-              tasks: list.tasks.map((task: Task) =>
-                task.id === updatedTask.id ? updatedTask : task
-              ),
+              tasks: list.tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task)),
             }
           : list
       )
     );
-  };
+  }
 
-  const deleteTask = (listId: string, taskId: number) => {
-    setTaskLists((prevLists) =>
-      prevLists.map((list) =>
+  function deleteTask(listId: string, taskId: number) {
+    setTaskLists((prev) =>
+      prev.map((list) =>
         list.id === listId
           ? {
               ...list,
-              tasks: list.tasks.filter((task: Task) => task.id !== taskId),
+              tasks: list.tasks.filter((task) => task.id !== taskId),
             }
           : list
       )
     );
-  };
+  }
 
-  const toggleTaskImportance = (listId: string, taskId: number) => {
-    setTaskLists((prevLists) =>
-      prevLists.map((list) => {
-        if (list.id === listId) {
-          return {
-            ...list,
-            tasks: list.tasks.map((task: Task) =>
-              task.id === taskId ? { ...task, isImportant: !task.isImportant } : task
-            ),
-          };
-        }
-        return list;
-      })
-    );
-  };
-
-  const toggleTaskCompletion = (listId: string, taskId: number) => {
-    setTaskLists((prevLists) =>
-      prevLists.map((list) =>
+  function toggleTaskImportance(listId: string, taskId: number) {
+    setTaskLists((prev) =>
+      prev.map((list) =>
         list.id === listId
           ? {
               ...list,
-              tasks: list.tasks.map((task: Task) =>
-                task.id === taskId
-                  ? { ...task, isChecked: !task.isChecked }
-                  : task
-              ),
+              tasks: list.tasks.map((task) => (task.id === taskId ? { ...task, isImportant: !task.isImportant } : task)),
             }
           : list
       )
     );
-  };
+  }
+
+  function toggleTaskCompletion(listId: string, taskId: number) {
+    setTaskLists((prev) =>
+      prev.map((list) =>
+        list.id === listId
+          ? {
+              ...list,
+              tasks: list.tasks.map((task) => (task.id === taskId ? { ...task, isChecked: !task.isChecked } : task)),
+            }
+          : list
+      )
+    );
+  }
 
   return (
     <AppContext.Provider

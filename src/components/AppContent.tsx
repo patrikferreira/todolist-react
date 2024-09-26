@@ -1,13 +1,11 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import SignIn from "./SignIn";
-import MyDay from "./MyDay";
-import Important from "./Important";
 import Sidebar from "./Sidebar";
 import Notes from "./Notes";
-
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
-import Projects from "./Projtects";
+import TaskListContainer from "./TaskListContainer";
+import Projects from "./Projects";
 
 export default function AppContent() {
   const location = useLocation();
@@ -19,8 +17,8 @@ export default function AppContent() {
         {location.pathname === "/" ? null : <Sidebar />}
         <Routes>
           <Route path="/" element={<SignIn />} />
-          <Route path="myday" element={<MyDay />} />
-          <Route path="important" element={<Important />} />
+          <Route path="myday" element={<TaskListContainer title="My Day" filterImportant={false} />} />
+          <Route path="important" element={<TaskListContainer title="Important" filterImportant={true} />} />
           <Route path="notes" element={<Notes />} />
           {ctx?.taskLists
             .filter((list) => list.id !== "myday")
@@ -31,6 +29,7 @@ export default function AppContent() {
                 element={<Projects listId={list.id} />}
               />
             ))}
+          <Route path="*" element={<Navigate to="/myday" />} />
         </Routes>
       </div>
     </div>

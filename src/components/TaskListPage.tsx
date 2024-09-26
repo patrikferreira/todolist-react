@@ -7,6 +7,7 @@ import Button from "./Button";
 import Search from "./Search";
 import SortList from "./SortList";
 import { AppContext } from "../AppContext";
+import Modal from "./Modal";
 
 type Props = {
   title?: string;
@@ -128,7 +129,6 @@ export default function TaskListPage({
           <li className="py-2 px-4">No tasks available</li>
         )}
       </ul>
-
       <ToastManager message={errorMessage} />
     </div>
   );

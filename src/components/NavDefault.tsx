@@ -14,14 +14,12 @@ type MenuItem = {
 type Props = {
   selectedRoute: string;
   countTasksByCategory: (category: string) => number;
-  setSelectedRoute: (route: string) => void;
   closeSidebar: () => void;
 };
 
 export default function NavDefault({
   selectedRoute,
   countTasksByCategory,
-  setSelectedRoute,
   closeSidebar,
 }: Props) {
   const menuItems: MenuItem[] = [
@@ -55,11 +53,10 @@ export default function NavDefault({
             path={item.path}
             icon={item.icon}
             label={item.label}
-            isSelected={selectedRoute === item.id}
+            isSelected={selectedRoute === item.path}
             count={countTasksByCategory(item.id)}
             hasSubMenu={false}
             onClick={() => {
-              setSelectedRoute(item.id);
               closeSidebar();
             }}
           />
