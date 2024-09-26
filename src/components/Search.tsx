@@ -1,5 +1,4 @@
 import { IoSearchOutline } from "react-icons/io5";
-import SmallButton from "./SmallButton";
 
 type Props = {
   searchValue: string;
@@ -8,12 +7,13 @@ type Props = {
 
 export default function Search({ searchValue, onSearchChange }: Props) {
   return (
-    <div className={`flex items-center justify-between transition-all duration-200`}>
-      <SmallButton icon={<IoSearchOutline />} className="hover:bg-transparent" />
+    <div className={`flex items-center justify-between gap-2 transition-all duration-200 bg-firstColor border rounded-lg px-4 py-2 `}>
+      <label htmlFor="search"><IoSearchOutline className="text-secondColor" /></label>
       <input
         type="text"
         placeholder="Search task"
-        className="outline-none text-sm"
+        id="search"
+        className="outline-none text-sm bg-firstColor"
         value={searchValue}
         onChange={(e) => onSearchChange(e.target.value)}
       />

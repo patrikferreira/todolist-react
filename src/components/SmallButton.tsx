@@ -8,7 +8,7 @@ type Props = {
 
 export default function SmallButton({className, icon, action}: Props) {
     return (
-        <button className={`p-2 rounded-md transition-all duration-300 hover:bg-hoverColor text-lg text-baseColor ${className}`} onClick={action}>
+        <button className={`p-2 rounded-md transition-all duration-300 hover:bg-hoverColor text-lg text-secondColor ${className}`} onClick={action}>
             {icon}
         </button>
     )

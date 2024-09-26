@@ -13,6 +13,7 @@ import UnderConstruction from "./UnderConstruction";
 import NavDefault from "./NavDefault";
 import { MAX_PROJECT_NAME_LENGTH } from "../Types";
 import ToastManager from "./ToastManager";
+import { VscLayoutSidebarLeftOff } from "react-icons/vsc";
 
 export default function Sidebar() {
   const ctx = useContext(AppContext);
@@ -96,6 +97,7 @@ export default function Sidebar() {
                   <UnderConstruction />
                 </Popover>
               )}
+              <SmallButton icon={<VscLayoutSidebarLeftOff />} action={closeSidebar} className="md:hidden" />
             </div>
           </div>
 
