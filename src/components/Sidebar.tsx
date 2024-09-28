@@ -14,7 +14,7 @@ import NavDefault from "./NavDefault";
 import { MAX_PROJECT_NAME_LENGTH } from "../Types";
 import ToastManager from "./ToastManager";
 import { VscLayoutSidebarLeftOff } from "react-icons/vsc";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
   const ctx = useContext(AppContext);
@@ -25,6 +25,7 @@ export default function Sidebar() {
   const [currentEditListId, setCurrentEditListId] = useState<string>("");
   const [newTitle, setNewTitle] = useState<string>("");
   const location = useLocation();
+  const navigate = useNavigate();
 
   if (!ctx) {
     throw new Error("AppContext must be used within an AppProvider");
@@ -60,6 +61,7 @@ export default function Sidebar() {
     ctx?.addTaskList(newProject);
     setNewProjectName("");
     setProjectsActive(false);
+    navigate(newProject.title)
   }
 
   function handleEditList(id: string, title: string) {
