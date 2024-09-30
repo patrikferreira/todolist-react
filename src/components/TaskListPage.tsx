@@ -7,7 +7,7 @@ import Button from "./Button";
 import Search from "./Search";
 import SortList from "./SortList";
 import { AppContext } from "../AppContext";
-import Modal from "./Modal";
+import ImportantCheck from "./ImportantCheck";
 
 type Props = {
   title?: string;
@@ -27,13 +27,16 @@ export default function TaskListPage({
   const [taskValue, setTaskValue] = useState<string>("");
   const [searchValue, setSearchValue] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [editedTaskDescription, setEditedTaskDescription] = useState<string>("");
+  const [editedTaskIsImportant, setEditedTaskIsImportant] = useState<boolean>(false);
 
   const ctx = useContext(AppContext);
   if (!ctx) {
     throw new Error("AppContext must be used within an AppProvider");
   }
 
-  const { sortBy } = ctx;
+  const { sortBy, updateTask, toggleTaskImportance, deleteTask } = ctx;
 
   function handleAddTask() {
     if (tasks.length >= 10) {
@@ -43,7 +46,9 @@ export default function TaskListPage({
 
     if (taskValue.trim()) {
       if (taskValue.trim().length > MAX_TASK_LENGTH) {
-        setErrorMessage(`Task description cannot exceed ${MAX_TASK_LENGTH} characters.`);
+        setErrorMessage(
+          `Task description cannot exceed ${MAX_TASK_LENGTH} characters.`
+        );
         return;
       }
 
@@ -60,9 +65,41 @@ export default function TaskListPage({
     }
   }
 
+  function handleDeleteTask(taskId: string) {
+    deleteTask(listId, Number(taskId));
+    setErrorMessage(`Task deleted successfully.`);
+  }
+
+  function handleEditTask(task: Task) {
+    setEditingTask(task);
+    setEditedTaskDescription(task.description);
+    setEditedTaskIsImportant(task.isImportant);
+  }
+
+  function handleSaveEdit() {
+    if (editingTask) {
+      updateTask(listId, {
+        ...editingTask,
+        description: editedTaskDescription,
+        isImportant: editedTaskIsImportant,
+      });
+      setEditingTask(null);
+    }
+  }
+
+  function handleCancelEdit() {
+    setEditingTask(null);
+  }
+
   function handleKeyPress(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === "Enter") {
       handleAddTask();
+    }
+  }
+
+  function handleEditKeyPress(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === "Enter") {
+      handleSaveEdit();
     }
   }
 
@@ -116,6 +153,49 @@ export default function TaskListPage({
       </div>
 
       <ul>
+        <div
+          className={`rounded-lg border w-full min-h-fit p-4 ${
+            editingTask ? "flex" : "hidden"
+          }`}
+        >
+          {editingTask && (
+            <div className="flex w-full flex-col gap-2">
+              <input
+                type="text"
+                value={editedTaskDescription}
+                onChange={(e) => setEditedTaskDescription(e.target.value)}
+                onKeyDown={handleEditKeyPress}
+                className="p-2 outline-none border rounded-lg text-sm"
+                maxLength={MAX_TASK_LENGTH}
+              />
+              <div className="flex justify-between items-center gap-2">
+                <div className={`text-sm ${editedTaskDescription.length >= MAX_TASK_LENGTH ? "text-accent" : ""}`}>
+                  {editedTaskDescription.length}/{MAX_TASK_LENGTH}
+                </div>
+                <div className="flex items-center gap-2">
+                  <ImportantCheck
+                    action={() => setEditedTaskIsImportant(!editedTaskIsImportant)}
+                    isChecked={editedTaskIsImportant}
+                    className="p-2 rounded-lg"
+                  />
+                  <button
+                    className="bg-focusColor text-white px-4 py-2 rounded-lg text-sm transition-all duration-300 hover:brightness-75"
+                    onClick={handleCancelEdit}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="bg-accent text-white px-4 py-2 rounded-lg text-sm transition-all duration-300 hover:brightness-75"
+                    onClick={handleSaveEdit}
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
         {filteredTasks.length > 0 ? (
           filteredTasks.map((task) => (
             <TaskItem
@@ -123,6 +203,8 @@ export default function TaskListPage({
               task={task}
               listId={listId}
               className="flex justify-between p-2 border-b"
+              onEdit={() => handleEditTask(task)}
+              onDelete={() => handleDeleteTask(task.id.toString())}
             />
           ))
         ) : (
