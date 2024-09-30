@@ -24,11 +24,6 @@ export default function TaskItem({
   onDelete,
 }: Props) {
   const ctx = useContext(AppContext);
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-
-  const togglePopover = () => {
-    setIsPopoverOpen((prev) => !prev);
-  };
 
   if (!ctx) {
     throw new Error("AppContext must be used within an AppProvider");
@@ -70,45 +65,21 @@ export default function TaskItem({
         </div>
       </div>
 
-      <div className="pt-1 flex items-start gap-2">
+      <div className="pt-1 flex items-start">
+        <div className="flex items-center gap-3">
         <ImportantCheck
           action={() => toggleTaskImportance(listId, task.id)}
           isChecked={task.isImportant}
         />
 
-        <button className="text-xl text-secondColor" onClick={togglePopover}>
-          <CiMenuKebab />
+        <button className=" text-secondColor" onClick={onEdit}>
+          <FiEdit />
         </button>
 
-        {isPopoverOpen && (
-          <Popover
-            onClose={() => setIsPopoverOpen(false)}
-            className="absolute top-10 right-0"
-          >
-            <div className="flex flex-col">
-              <button
-                className="flex items-center gap-2 hover:bg-hoverColor p-2 rounded-lg"
-                onClick={() => {
-                  setIsPopoverOpen(false);
-                  onEdit();
-                }}
-              >
-                <FiEdit />
-                Edit
-              </button>
-              <button
-                className="flex items-center gap-2 hover:bg-hoverColor p-2 rounded-lg"
-                onClick={() => {
-                  setIsPopoverOpen(false);
-                  onDelete();
-                }}
-              >
-                <GoTrash />
-                Delete
-              </button>
-            </div>
-          </Popover>
-        )}
+        <button className=" text-secondColor" onClick={onDelete}>
+          <GoTrash />
+        </button>
+        </div>
       </div>
     </li>
   );

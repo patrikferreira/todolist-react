@@ -67,7 +67,6 @@ export default function TaskListPage({
 
   function handleDeleteTask(taskId: string) {
     deleteTask(listId, Number(taskId));
-    setErrorMessage(`Task deleted successfully.`);
   }
 
   function handleEditTask(task: Task) {
