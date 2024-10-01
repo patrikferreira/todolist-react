@@ -1,5 +1,5 @@
 import Header from "./Header";
-import UnderConstruction from "./UnderConstruction";
+import NoContent from "./NoContent";
 
 export default function Notes() {
   return (
@@ -8,7 +8,7 @@ export default function Notes() {
     >
       <Header />
       <div className="h-full w-full flex items-center justify-center">
-        <UnderConstruction />
+      <NoContent className="h-40" img={<img src="/src/assets/building.svg" className="h-full" alt="" />} title="Building" />
       </div>
     </div>
   );

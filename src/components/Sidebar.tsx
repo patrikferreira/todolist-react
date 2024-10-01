@@ -9,12 +9,12 @@ import Modal from "./Modal";
 import Popover from "./Popover";
 import NavItem from "./NavItem";
 import User from "./User";
-import UnderConstruction from "./UnderConstruction";
 import NavDefault from "./NavDefault";
 import { MAX_PROJECT_NAME_LENGTH } from "../Types";
 import ToastManager from "./ToastManager";
 import { VscLayoutSidebarLeftOff } from "react-icons/vsc";
 import { useLocation, useNavigate } from "react-router-dom";
+import NoContent from "./NoContent";
 
 export default function Sidebar() {
   const ctx = useContext(AppContext);
@@ -96,7 +96,7 @@ export default function Sidebar() {
                   onClose={() => setNotificationsActive(false)}
                   className="absolute right-0 md:left-0"
                 >
-                  <UnderConstruction />
+                  <NoContent className="w-36" img={<img src="/src/assets/building.svg" className="h-full" alt="" />} title="Building" />
                 </Popover>
               )}
               <SmallButton

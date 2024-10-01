@@ -7,8 +7,8 @@ import { IoIosLogOut, IoIosStarOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { IoSettingsOutline } from "react-icons/io5";
 import Modal from "./Modal";
-import UnderConstruction from "./UnderConstruction";
 import Plan from "./Plan";
+import NoContent from "./NoContent";
 
 type Props = {
   name: string;
@@ -35,7 +35,6 @@ export default function User({ name }: Props) {
   function closeModal() {
     setModalTitle(null);
   }
-  
 
   return (
     <div className="relative flex items-center justify-between">
@@ -96,7 +95,7 @@ export default function User({ name }: Props) {
 
         {modalTitle && (
           <Modal title={modalTitle} onClose={closeModal}>
-            <UnderConstruction />
+            <NoContent className="w-36" img={<img src="/src/assets/building.svg" className="h-full" alt="" />} title="Building" />
           </Modal>
         )}
       </div>

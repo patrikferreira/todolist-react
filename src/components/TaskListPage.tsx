@@ -8,6 +8,7 @@ import Search from "./Search";
 import SortList from "./SortList";
 import { AppContext } from "../AppContext";
 import ImportantCheck from "./ImportantCheck";
+import NoContent from "./NoContent";
 
 type Props = {
   title?: string;
@@ -120,7 +121,7 @@ export default function TaskListPage({
   );
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 h-full">
       <div className="flex flex-col gap-4">
         <div className="w-full border rounded-lg p-2">
           <div className="flex items-center justify-between">
@@ -151,7 +152,7 @@ export default function TaskListPage({
         </div>
       </div>
 
-      <ul>
+      <ul className="h-full">
         <div
           className={`rounded-lg border w-full min-h-fit p-4 ${
             editingTask ? "flex" : "hidden"
@@ -207,7 +208,7 @@ export default function TaskListPage({
             />
           ))
         ) : (
-          <li className="py-2 px-4">No tasks available</li>
+          <NoContent className="h-40" img={<img src="/src/assets/todo.svg" className="h-full" alt="" />} title="There are no tasks created yet." />
         )}
       </ul>
       <ToastManager message={errorMessage} />
