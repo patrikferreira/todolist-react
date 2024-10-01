@@ -3,6 +3,7 @@ import { AppContext } from "../AppContext";
 import Header from "./Header";
 import TaskListPage from "./TaskListPage";
 import { Task } from "../Types";
+import FixedContainer from "./FixedContainer";
 
 interface ProjectsProps {
   listId: string;
@@ -26,15 +27,21 @@ export default function Projects({ listId }: ProjectsProps) {
   };
 
   return (
-    <div className={`flex flex-col gap-2 w-full animate-fade-in-left transition-all duration-300 p-4`}>
-      <Header title={taskList.title} />
-      <TaskListPage
-        title={taskList.title}
-        tasks={taskList.tasks}
-        onAddTask={handleAddTask}
-        filterImportant={false}
-        listId={taskList.id}
-      />
+    <div
+      className={`w-full animate-fade-in-left transition-all duration-300 p-4 h-screen`}
+    >
+      <FixedContainer>
+        <Header title={taskList.title} />
+        <div className="overflow-y-auto h-[calc(100vh-100px)]">
+          <TaskListPage
+            title={taskList.title}
+            tasks={taskList.tasks}
+            onAddTask={handleAddTask}
+            filterImportant={false}
+            listId={taskList.id}
+          />
+        </div>
+      </FixedContainer>
     </div>
   );
 }

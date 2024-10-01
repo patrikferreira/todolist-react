@@ -33,17 +33,19 @@ export default function TaskListContainer({ title, filterImportant }: Props) {
 
   return (
     <div
-      className={`flex w-full animate-fade-in-left transition-all duration-300 p-4`}
+      className="flex w-full animate-fade-in-left transition-all duration-300 p-4 h-screen"
     >
       <FixedContainer>
         <Header title={title} />
-        <TaskListPage
-          title={title}
-          tasks={filteredTasks}
-          onAddTask={handleAddTask}
-          filterImportant={filterImportant}
-          listId={myDayList ? myDayList.id : ""}
-        />
+        <div className="overflow-y-auto h-[calc(100vh-100px)]">
+          <TaskListPage
+            title={title}
+            tasks={filteredTasks}
+            onAddTask={handleAddTask}
+            filterImportant={filterImportant}
+            listId={myDayList ? myDayList.id : ""}
+          />
+        </div>
       </FixedContainer>
     </div>
   );
