@@ -4,8 +4,6 @@ import { AppContext } from "../AppContext";
 import Check from "./Check";
 import ImportantCheck from "./ImportantCheck";
 import { FiEdit } from "react-icons/fi";
-import { CiMenuKebab } from "react-icons/ci";
-import Popover from "./Popover";
 import { GoTrash } from "react-icons/go";
 
 type Props = {
@@ -24,6 +22,7 @@ export default function TaskItem({
   onDelete,
 }: Props) {
   const ctx = useContext(AppContext);
+  const [isHovered, setIsHovered] = useState(false);
 
   if (!ctx) {
     throw new Error("AppContext must be used within an AppProvider");
@@ -41,7 +40,11 @@ export default function TaskItem({
   }
 
   return (
-    <li className={`animate-fade-in-left flex ${className}`}>
+    <li
+      className={`animate-fade-in-left flex transition-all duration-200 hover:bg-hoverColor ${className}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="flex gap-2 w-full">
         <div className="pt-1">
           <Check
@@ -65,20 +68,18 @@ export default function TaskItem({
         </div>
       </div>
 
-      <div className="pt-1 flex items-start">
+      <div className={`pt-1 flex items-start transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
         <div className="flex items-center gap-3">
-        <ImportantCheck
-          action={() => toggleTaskImportance(listId, task.id)}
-          isChecked={task.isImportant}
-        />
-
-        <button className=" text-secondColor" onClick={onEdit}>
-          <FiEdit />
-        </button>
-
-        <button className=" text-secondColor" onClick={onDelete}>
-          <GoTrash />
-        </button>
+          <ImportantCheck
+            action={() => toggleTaskImportance(listId, task.id)}
+            isChecked={task.isImportant}
+          />
+          <button className=" text-secondColor" onClick={onEdit}>
+            <FiEdit />
+          </button>
+          <button className=" text-secondColor" onClick={onDelete}>
+            <GoTrash />
+          </button>
         </div>
       </div>
     </li>

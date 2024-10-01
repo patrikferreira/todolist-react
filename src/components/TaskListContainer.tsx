@@ -3,11 +3,12 @@ import { AppContext } from "../AppContext";
 import Header from "./Header";
 import TaskListPage from "./TaskListPage";
 import { Task } from "../Types";
+import FixedContainer from "./FixedContainer";
 
 type Props = {
   title: string;
   filterImportant: boolean;
-}
+};
 
 export default function TaskListContainer({ title, filterImportant }: Props) {
   const ctx = useContext(AppContext);
@@ -19,9 +20,9 @@ export default function TaskListContainer({ title, filterImportant }: Props) {
   const myDayList = ctx.taskLists.find((list) => list.title === "My Day");
 
   const filteredTasks = myDayList
-    ? (filterImportant
-        ? myDayList.tasks.filter(task => task.isImportant)
-        : myDayList.tasks)
+    ? filterImportant
+      ? myDayList.tasks.filter((task) => task.isImportant)
+      : myDayList.tasks
     : [];
 
   const handleAddTask = (task: Task) => {
@@ -31,15 +32,19 @@ export default function TaskListContainer({ title, filterImportant }: Props) {
   };
 
   return (
-    <div className={`flex flex-col gap-4 w-full animate-fade-in-left transition-all duration-300 p-4`}>
-      <Header title={title} />
-      <TaskListPage
-        title={title}
-        tasks={filteredTasks}
-        onAddTask={handleAddTask}
-        filterImportant={filterImportant}
-        listId={myDayList ? myDayList.id : ""}
-      />
+    <div
+      className={`flex w-full animate-fade-in-left transition-all duration-300 p-4`}
+    >
+      <FixedContainer>
+        <Header title={title} />
+        <TaskListPage
+          title={title}
+          tasks={filteredTasks}
+          onAddTask={handleAddTask}
+          filterImportant={filterImportant}
+          listId={myDayList ? myDayList.id : ""}
+        />
+      </FixedContainer>
     </div>
   );
 }
