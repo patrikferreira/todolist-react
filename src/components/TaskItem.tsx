@@ -56,19 +56,28 @@ export default function TaskItem({
           <div>
             <p
               className={`${
-                task.isChecked ? "line-through text-secondColor" : ""
+                task.isChecked ? " text-secondColor" : ""
               } transition-all`}
             >
               {task.description}
             </p>
-            <span className="text-xs text-secondColor">
-              {formatDate(task.createdAt)}
-            </span>
+            <div className="flex  items-center text-xs  gap-2">
+              <span className="text-xs text-secondColor">
+                {formatDate(task.createdAt)}
+              </span>
+              <span className={`text-secondColor ${task.isChecked ? "" : "hidden"}`}>
+                Checked
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className={`pt-1 flex items-start transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+      <div
+        className={`pt-1 flex items-start transition-opacity duration-200 ${
+          isHovered ? "opacity-100" : "opacity-0"
+        }`}
+      >
         <div className="flex items-center gap-3">
           <ImportantCheck
             action={() => toggleTaskImportance(listId, task.id)}

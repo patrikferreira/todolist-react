@@ -104,21 +104,23 @@ export default function TaskListPage({
   }
 
   function sortTasks(tasks: Task[]) {
-    if (sortBy === "important") {
-      return tasks.sort((a, b) =>
-        a.isImportant === b.isImportant ? 0 : a.isImportant ? -1 : 1
-      );
-    }
-    return tasks.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
-  }
-
-  const filteredTasks = sortTasks(
-    tasks
+    return tasks
       .filter((task) =>
         task.description.toLowerCase().includes(searchValue.toLowerCase())
       )
       .filter((task) => (filterImportant ? task.isImportant : true))
-  );
+      .sort((a, b) => {
+        if (a.isChecked === b.isChecked) {
+          if (sortBy === "important") {
+            return a.isImportant === b.isImportant ? 0 : a.isImportant ? -1 : 1;
+          }
+          return a.createdAt > b.createdAt ? -1 : 1;
+        }
+        return a.isChecked ? 1 : -1;
+      });
+  }
+
+  const filteredTasks = sortTasks(tasks);
 
   return (
     <div className="flex flex-col gap-4 h-full">
@@ -208,7 +210,7 @@ export default function TaskListPage({
             />
           ))
         ) : (
-          <NoContent className="h-40" img={<img src="/src/assets/todo.svg" className="h-full" alt="" />} title="There are no tasks created yet." />
+          <NoContent className="h-32 md:h-40" img={<img src="/src/assets/todo.svg" className="h-full" alt="" />} title="There are no tasks created yet." />
         )}
       </ul>
       <ToastManager message={errorMessage} />
