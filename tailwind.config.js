@@ -12,7 +12,8 @@ export default {
         'accent': '#dc4c3e',
         'lightColor': '#ffffff',
         'hoverColor': '#f2f2f2',
-        'focusColor': '#f8cac5'
+        'focusColor': '#f8cac5',
+        'errorMsg': '#dc4c3e',
       },
       boxShadow: {
         'customShadow': '0px 0px 2px 0px rgba(0,0,0,0.3)',

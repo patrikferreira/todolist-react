@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { AppContext } from "../AppContext";
 import TaskListContainer from "./TaskListContainer";
 import Projects from "./Projects";
+import ProtectedRoute from "./ProtectedRoute";
 
 export default function AppContent() {
   const location = useLocation();
@@ -17,16 +18,42 @@ export default function AppContent() {
         {location.pathname === "/" ? null : <Sidebar />}
         <Routes>
           <Route path="/" element={<SignIn />} />
-          <Route path="myday" element={<TaskListContainer title="My Day" filterImportant={false} />} />
-          <Route path="important" element={<TaskListContainer title="Important" filterImportant={true} />} />
-          <Route path="notes" element={<Notes />} />
+          <Route
+            path="myday"
+            element={
+              <ProtectedRoute>
+                <TaskListContainer title="My Day" filterImportant={false} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="important"
+            element={
+              <ProtectedRoute>
+                <TaskListContainer title="Important" filterImportant={true} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="notes"
+            element={
+              <ProtectedRoute>
+                <Notes />
+              </ProtectedRoute>
+            }
+          />
+
           {ctx?.taskLists
             .filter((list) => list.id !== "myday")
             .map((list) => (
               <Route
                 key={list.id}
                 path={list.id}
-                element={<Projects listId={list.id} />}
+                element={
+                  <ProtectedRoute>
+                    <Projects listId={list.id} />
+                  </ProtectedRoute>
+                }
               />
             ))}
           <Route path="*" element={<Navigate to="/myday" />} />

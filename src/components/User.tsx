@@ -24,6 +24,7 @@ export default function User({ name }: Props) {
   }
 
   function handleLogout() {
+    localStorage.removeItem("token");
     navigate("/");
   }
 
@@ -54,7 +55,6 @@ export default function User({ name }: Props) {
             className="absolute right-0 bottom-full rounded-lg w-60"
           >
             <div className="flex flex-col min-w-max">
-  
                 <button
                   onClick={() => openModal(name)}
                   className="flex items-center w-full rounded-lg gap-2 p-2 transition-all duration-300 hover:bg-hoverColor"

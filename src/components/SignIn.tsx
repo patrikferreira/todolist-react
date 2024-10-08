@@ -5,9 +5,10 @@ import { FcGoogle } from "react-icons/fc";
 import Button from "./Button";
 import Logo from "./Logo";
 import Anchor from "./Anchor";
+import AuthService from "../service/AuthService";
 
 type FormData = {
-  username: string;
+  email: string;
   password: string;
 };
 
@@ -15,14 +16,23 @@ export default function SignIn() {
   const ctx = useContext(AppContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
-    username: "",
-    password: "",
+    email: "eve.holt@reqres.in",
+    password: "cityslicka",
   });
+  const [error, setError] = useState<string | null>(null);
 
-
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    navigate("/myday");
+
+    const result = await AuthService.login(formData.email, formData.password);
+    if (result.token) {
+      localStorage.setItem("token", result.token);
+      setError(null)
+      navigate("/myday");
+    } else {
+      setError(result.error || "Erro desconhecido");
+    }
+
   }
 
   return (
@@ -39,6 +49,12 @@ export default function SignIn() {
               id="email"
               type="text"
               placeholder="Email"
+              value={formData.email}
+              onChange={(e) => {
+                setFormData({ ...formData, email: e.target.value })
+                console.log(formData.email)
+                setError(null)
+              }}
               className="border outline-none py-2 px-4 rounded-xl text-sm transition-all duration-300"
             />
           </div>
@@ -49,8 +65,15 @@ export default function SignIn() {
               id="password"
               type="text"
               placeholder="Password"
+              value={formData.password}
+              onChange={(e) => {
+                setFormData({ ...formData, password: e.target.value })
+                console.log(formData.password)
+                setError(null)
+              }}
               className="border outline-none py-2 px-4 rounded-xl text-sm transition-all duration-300"
             />
+          <span className="h-5 flex justify-center items-center text-sm text-errorMsg">{error}</span>
           </div>
 
           <Button title="Sign in" className="rounded-xl" />
