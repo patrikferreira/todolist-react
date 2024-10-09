@@ -8,7 +8,7 @@ import Anchor from "./Anchor";
 import AuthService from "../service/AuthService";
 
 type FormData = {
-  email: string;
+  username: string;
   password: string;
 };
 
@@ -16,15 +16,15 @@ export default function SignIn() {
   const ctx = useContext(AppContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
-    email: "eve.holt@reqres.in",
-    password: "cityslicka",
+    username: "john_doe",
+    password: "password123",
   });
   const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    const result = await AuthService.login(formData.email, formData.password);
+    const result = await AuthService.login(formData.username, formData.password);
     if (result.token) {
       localStorage.setItem("token", result.token);
       setError(null)
@@ -44,15 +44,14 @@ export default function SignIn() {
         <h1 className="text-4xl font-semibold">Sign in</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-80">
           <div className="flex flex-col gap-2">
-            <label htmlFor="email" className="text-sm">Email</label>
+            <label htmlFor="username" className="text-sm">Username</label>
             <input
-              id="email"
+              id="username"
               type="text"
-              placeholder="Email"
-              value={formData.email}
+              placeholder="Username"
+              value={formData.username}
               onChange={(e) => {
-                setFormData({ ...formData, email: e.target.value })
-                console.log(formData.email)
+                setFormData({ ...formData, username: e.target.value })
                 setError(null)
               }}
               className="border outline-none py-2 px-4 rounded-xl text-sm transition-all duration-300"
