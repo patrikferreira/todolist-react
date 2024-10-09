@@ -16,8 +16,10 @@ export default function SignIn() {
   const ctx = useContext(AppContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
-    username: "john_doe",
-    password: "password123",
+    // username: "AdminUser",
+    // username: "BasicUser",
+    username: "PremiumUser",
+    password: "password",
   });
   const [error, setError] = useState<string | null>(null);
 
