@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
-import { AppContext } from "../AppContext";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import Button from "./Button";
 import Logo from "./Logo";
 import Anchor from "./Anchor";
 import AuthService from "../service/AuthService";
+import { UserContext } from "../store/UserContext";
 
 type FormData = {
   username: string;
@@ -13,7 +13,7 @@ type FormData = {
 };
 
 export default function SignIn() {
-  const ctx = useContext(AppContext);
+  const ctx = useContext(UserContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     // username: "AdminUser",
@@ -28,6 +28,11 @@ export default function SignIn() {
 
     const result = await AuthService.login(formData.username, formData.password);
     if (result.token) {
+      const userData = {
+        id: result.user.id,
+        name: result.user.name,
+      }
+      ctx.setUser(userData)
       localStorage.setItem("token", result.token);
       setError(null)
       navigate("/myday");
