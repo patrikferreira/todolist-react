@@ -11,7 +11,7 @@ interface Props {
   icon: ReactNode;
   label: string;
   isSelected: boolean;
-  count: number;
+  count?: number;
   onClick: () => void;
   onDelete?: () => void;
   onEdit?: () => void;
@@ -58,7 +58,7 @@ export default function NavItem({
         <span
           className={`text-sm mr-2 ${hasSubMenu ? "group-hover:hidden" : ""}`}
         >
-          {count}
+          {count ? count : "0"}
         </span>
         {hasSubMenu && (
           <button

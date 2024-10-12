@@ -1,3 +1,8 @@
+export type User = {
+    id: string;
+    name: string;
+};
+
 export type Task = {
     id: number;
     description: string;
@@ -11,6 +16,12 @@ export type TaskList = {
     title: string;
     tasks: Task[];
 };
+
+export type FormDataLogin = {
+    email: string;
+    password: string;
+}
+
 
 export const MAX_PROJECT_NAME_LENGTH = 25;
 

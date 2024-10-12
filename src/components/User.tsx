@@ -9,12 +9,13 @@ import { IoSettingsOutline } from "react-icons/io5";
 import Modal from "./Modal";
 import Plan from "./Plan";
 import NoContent from "./NoContent";
+import { User as UserType } from "../Types";
 
 type Props = {
-  name: string;
+  user: UserType | null;
 };
 
-export default function User({ name }: Props) {
+export default function User({ user }: Props) {
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
   const [modalTitle, setModalTitle] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ export default function User({ name }: Props) {
         <div className="h-8 w-8 rounded-full bg-focusColor flex items-center justify-center">
           <PiUserLight className="text-xl" />
         </div>
-        <p className="text-sm">{name}</p>
+        <p className="text-sm">{user ? user.name : ""}</p>
       </div>
 
       <div className="relative">
@@ -56,11 +57,11 @@ export default function User({ name }: Props) {
           >
             <div className="flex flex-col min-w-max">
                 <button
-                  onClick={() => openModal(name)}
+                  onClick={() => openModal(user ? user.name : "")}
                   className="flex items-center w-full rounded-lg gap-2 p-2 transition-all duration-300 hover:bg-hoverColor"
                 >
                   <PiUserLight />
-                  <p className="text-sm">{name}</p>
+                  <p className="text-sm">{user ? user.name : ""}</p>
                 </button>
                 <button
                   onClick={() => openModal("Upgrade")}
@@ -70,7 +71,7 @@ export default function User({ name }: Props) {
                     <IoIosStarOutline className="text-yellow-300" />
                     Upgrade
                   </div>
-                  <Plan plan="Basic" />
+                  <Plan plan="Beta" />
                 </button>
                 <button
                   onClick={() => openModal("Settings")}

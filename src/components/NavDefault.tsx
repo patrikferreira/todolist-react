@@ -13,7 +13,7 @@ type MenuItem = {
 
 type Props = {
   selectedRoute: string;
-  countTasksByCategory: (category: string) => number;
+  countTasksByCategory?: (category: string) => number;
   closeSidebar: () => void;
 };
 
@@ -24,10 +24,10 @@ export default function NavDefault({
 }: Props) {
   const menuItems: MenuItem[] = [
     {
-      id: "myday",
+      id: "today",
       label: "My Day",
       icon: <GoSun className="text-lg" />,
-      path: "/myday",
+      path: "/today",
     },
     {
       id: "important",
@@ -54,7 +54,6 @@ export default function NavDefault({
             icon={item.icon}
             label={item.label}
             isSelected={selectedRoute === item.path}
-            count={countTasksByCategory(item.id)}
             hasSubMenu={false}
             onClick={() => {
               closeSidebar();

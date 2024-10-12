@@ -1,9 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
-
-type User = {
-  id: string;
-  name: string;
-};
+import { User } from "../Types";
 
 type UserCtx = {
   user: User | null;
@@ -18,7 +14,10 @@ type Props = {
 export const UserContext = createContext<UserCtx>({} as UserCtx);
 
 export default function UserProvider({ children }: Props) {
-  const [user, setUser] = useState<User>({} as User);
+  const [user, setUser] = useState<User>({
+    id: "123",
+    name: "John Doe"
+  });
   const [token, setToken] = useState<string | null>(null);
 
   return (

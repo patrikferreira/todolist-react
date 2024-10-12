@@ -8,7 +8,7 @@ import AuthService from "../service/AuthService";
 import { UserContext } from "../store/UserContext";
 
 type FormData = {
-  username: string;
+  email: string;
   password: string;
 };
 
@@ -16,23 +16,18 @@ export default function SignIn() {
   const ctx = useContext(UserContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
-    // username: "AdminUser",
-    // username: "BasicUser",
-    username: "PremiumUser",
-    password: "password",
+    // email: "AdminUser",
+    // email: "BasicUser",
+    email: "eve.holt@reqres.in",
+    password: "cityslicka",
   });
   const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    const result = await AuthService.login(formData.username, formData.password);
+    const result = await AuthService.login(formData.email, formData.password);
     if (result.token) {
-      const userData = {
-        id: result.user.id,
-        name: result.user.name,
-      }
-      ctx.setUser(userData)
       localStorage.setItem("token", result.token);
       setError(null)
       navigate("/myday");
@@ -51,14 +46,14 @@ export default function SignIn() {
         <h1 className="text-4xl font-semibold">Sign in</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-80">
           <div className="flex flex-col gap-2">
-            <label htmlFor="username" className="text-sm">Username</label>
+            <label htmlFor="email" className="text-sm">email</label>
             <input
-              id="username"
+              id="email"
               type="text"
-              placeholder="Username"
-              value={formData.username}
+              placeholder="email"
+              value={formData.email}
               onChange={(e) => {
-                setFormData({ ...formData, username: e.target.value })
+                setFormData({ ...formData, email: e.target.value })
                 setError(null)
               }}
               className="border outline-none py-2 px-4 rounded-xl text-sm transition-all duration-300"

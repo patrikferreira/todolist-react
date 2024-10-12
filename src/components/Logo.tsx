@@ -1,11 +1,22 @@
 type Props = {
-    className?: string;
-}
+  smallSize?: boolean;
+};
 
-export default function Logo({className}: Props) {
-    return (
-        <div>
-            <h1 className={`font-semibold text-accent ${className}`}>Logo</h1>
-        </div>
-    )
+export default function Logo({ smallSize }: Props) {
+  return (
+    <div className="flex items-center gap-2">
+      <img
+        src="/src/assets/jata.png"
+        alt=""
+        className={`rounded-lg ${smallSize ? "h-8" : "h-12"}`}
+      />
+      <h1
+        className={`font-semibold text-accent ${
+          smallSize ? "text-xl" : "text-3xl"
+        }`}
+      >
+        JaTa
+      </h1>
+    </div>
+  );
 }
