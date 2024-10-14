@@ -9,6 +9,7 @@ import NavDefault from "./NavDefault";
 import { useLocation, useNavigate } from "react-router-dom";
 import User from "./User";
 import { UserContext } from "../store/UserContext";
+import { PiArrowsLeftRight } from "react-icons/pi";
 
 export default function Sidebar() {
   const ctx = useContext(UserContext);

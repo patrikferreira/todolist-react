@@ -11,7 +11,7 @@ export default {
         'secondColor': '#515151',
         'accent': '#dc4c3e',
         'lightColor': '#ffffff',
-        'hoverColor': '#f2f2f2',
+        'hoverColor': '#ebebeb',
         'focusColor': '#f8cac5',
         'errorMsg': '#dc4c3e',
       },
