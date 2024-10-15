@@ -66,7 +66,7 @@ export default function FormLogin() {
         <div className="flex items-center justify-between">
           <Anchor
             title="Lost your password?"
-            route="/"
+            route="/recover"
             className="hover:text-accent"
           />
           <Anchor title="Register" route="/register" className="hover:text-accent" />
