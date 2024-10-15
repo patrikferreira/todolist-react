@@ -22,6 +22,11 @@ export type FormDataLogin = {
     password: string;
 }
 
+export type FormRegister = {
+    username: string;
+    email: string;
+    password: string;
+}
 
 export const MAX_PROJECT_NAME_LENGTH = 25;
 

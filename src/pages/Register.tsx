@@ -1,8 +1,8 @@
-import Logo from "../components/Logo";
-import FormLogin from "../components/FormLogin";
 import Copyright from "../components/Copyright";
+import FormRegister from "../components/FormRegister";
+import Logo from "../components/Logo";
 
-export default function Login() {
+export default function Register() {
   return (
     <div
       className={`flex flex-col min-h-screen w-full items-center justify-between loginBackground p-2 md:p-4`}
@@ -10,7 +10,7 @@ export default function Login() {
       <a href="/login">
         <Logo />
       </a>
-      <FormLogin />
+      <FormRegister />
       <Copyright />
     </div>
   );
