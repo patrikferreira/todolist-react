@@ -39,7 +39,7 @@ export default function Header({ important }: Props) {
   return (
     <div className="flex justify-between items-start w-full">
       <div className="flex items-start gap-2">
-        <SmallButton icon={<VscLayoutSidebarLeftOff />} className="md:hidden" />
+        <SmallButton icon={<VscLayoutSidebarLeftOff />} className="md:hidden" action={ctx.openSidebar} />
         {important ? (
           <h2 className="text-lg">Important Tasks 🚀</h2>
         ) : (
